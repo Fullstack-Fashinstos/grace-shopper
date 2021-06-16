@@ -1,6 +1,7 @@
 import React from "react"
 import {connect} from "react-redux";
-import fetchProducts from '../store/products'
+import {Link} from "react-router-dom";
+import {fetchProducts} from '../store/products'
 
 export class AllProducts extends React.Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ export class AllProducts extends React.Component {
                             <Link to={`/products/${product.id}`}>
                                 <div>{product.name}</div>
                             </Link>
-                            <img src={product.imageUrl} width="500" height="500" />
+                            <img src={product.imageUrl} width="300" height="300" />
                         </div>
                     );
                 })
@@ -27,11 +28,11 @@ export class AllProducts extends React.Component {
         );
     }
 }
- 
+
    const mapState = (state) => ({ products: state.products });
-  
+
    const mapDispatch = (dispatch, { history }) => ({
      fetchProducts: () => dispatch(fetchProducts()),
    });
-  
-   export default connect(mapState, mapDispatch)(AllCampuses);
+
+   export default connect(mapState, mapDispatch)(AllProducts);
