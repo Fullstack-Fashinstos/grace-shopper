@@ -11,12 +11,20 @@ const getCart = (cart) => {
 };
 
 export const getCartThunk = (id) => {
-  const idObj = {
-    userId: id,
-  };
+  // const idObj = {
+  //   userId: id,
+  // };
+
+  /*
+{
+      headers: {
+        authorization: token
+      }
+    }
+  */
   return async (dispatch) => {
     try {
-      const { data } = await axios.get("/api/cart", idObj);
+      const { data } = await axios.get(`/api/cart/${id}`);
       dispatch(getCart(data));
     } catch (error) {
       console.log(error);
