@@ -29,6 +29,14 @@ async function seed() {
       imageUrl:
         "https://images-na.ssl-images-amazon.com/images/I/81MUqwW7QEL._AC_UL1500_.jpg",
     }),
+    Product.create({
+      name: "T-shirt",
+      stock: 30,
+      price: 20.00,
+      description: "very nice T-shirt",
+      imageUrl:
+        "https://images-na.ssl-images-amazon.com/images/I/81MUqwW7QEL._AC_UL1500_.jpg",
+    }),
   ]);
 
   const carts = await Promise.all([
