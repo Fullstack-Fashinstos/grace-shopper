@@ -29,13 +29,26 @@ async function seed() {
       imageUrl:
         "https://images-na.ssl-images-amazon.com/images/I/81MUqwW7QEL._AC_UL1500_.jpg",
     }),
+    Product.create({
+      name: "shoes",
+      stock: 30,
+      price: 120.99,
+      description: "very very nice shoes",
+      imageUrl:
+        "https://images-na.ssl-images-amazon.com/images/I/81MUqwW7QEL._AC_UL1500_.jpg",
+    }),
   ]);
 
   const carts = await Promise.all([
     Cart.create({
       userId: 1,
       productId: 1,
-      quantity: 1,
+      quantity: 2,
+    }),
+    Cart.create({
+      userId: 1,
+      productId: 2,
+      quantity: 2,
     }),
     Cart.create({
       userId: 2,
