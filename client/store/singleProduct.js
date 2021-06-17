@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
 const EDIT_PRODUCT = 'EDIT_PRODUCT'
+const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
 const setSingleProduct = (product) => {
     return {
@@ -17,6 +18,13 @@ const editProduct = (product) => {
     }
 }
 
+const deleteProduct = (product) => {
+    return {
+        type: DELETE_PRODUCT,
+        product
+    }
+}
+
 export const fetchSingleProduct = (id) => {
     return async (dispatch) => {
         const { data } = await axios.get(`/api/products/${id}`)
@@ -25,11 +33,16 @@ export const fetchSingleProduct = (id) => {
 }
 
 export const sendEditProduct = (product) => {
-    console.log(product, 'arg')
     return async (dispatch) => {
-        const { data } = await axios.put(`/api/products${product.id}`)
-        console.log(data, 'in thunk')
-        dispatch(editProduct(data))
+        await axios.put(`/api/products/${product.id}`, product)
+        dispatch(editProduct(product))
+    }
+}
+
+export const sendDeleteProduct = (product) => {
+    return async (dispatch) => {
+        const { data } = await axios.delete(`/api/products/${product.id}`)
+        dispatch(deleteProduct(data))
     }
 }
 
