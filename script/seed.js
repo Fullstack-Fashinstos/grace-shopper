@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Cart, Product },
+  models: { User, Cart, Product, Order, Order_Product },
 } = require("../server/db");
 
 /**
@@ -24,33 +24,68 @@ async function seed() {
     Product.create({
       name: "yeezys",
       stock: 20,
-      price: 320.99,
+      price: 29099,
       description: "very nice shoes",
       imageUrl:
         "https://images-na.ssl-images-amazon.com/images/I/81MUqwW7QEL._AC_UL1500_.jpg",
     }),
     Product.create({
-      name: "T-shirt",
+      name: "shoes",
       stock: 30,
-      price: 20.00,
-      description: "very nice T-shirt",
+      price: 12099,
+      description: "very very nice shoes",
       imageUrl:
         "https://images-na.ssl-images-amazon.com/images/I/81MUqwW7QEL._AC_UL1500_.jpg",
     }),
   ]);
 
-  const carts = await Promise.all([
-    Cart.create({
+  const order = await Promise.all([
+    Order.create({
+      fullfilled: false,
       userId: 1,
-      productId: 1,
-      quantity: 1,
     }),
-    Cart.create({
+    Order.create({
+      fullfilled: false,
       userId: 2,
-      productId: 1,
-      quantity: 1,
+    }),
+    Order.create({
+      fullfilled: false,
+      userId: 3,
     }),
   ]);
+
+  const order_product = await Promise.all([
+    Order_Product.create({
+      productId: 1,
+      orderId: 1,
+    }),
+    Order_Product.create({
+      productId: 2,
+      orderId: 1,
+    }),
+    Order_Product.create({
+      productId: 2,
+      orderId: 2,
+    }),
+  ]);
+
+  // const carts = await Promise.all([
+  //   Cart.create({
+  //     userId: 1,
+  //     productId: 1,
+  //     quantity: 2,
+  //   }),
+  //   Cart.create({
+  //     userId: 1,
+  //     productId: 2,
+  //     quantity: 2,
+  //   }),
+  //   Cart.create({
+  //     userId: 2,
+  //     productId: 1,
+  //     quantity: 1,
+  //   }),
+  // ]);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
