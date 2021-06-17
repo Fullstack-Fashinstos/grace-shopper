@@ -11,17 +11,6 @@ const getCart = (cart) => {
 };
 
 export const getCartThunk = (id) => {
-  // const idObj = {
-  //   userId: id,
-  // };
-
-  /*
-{
-      headers: {
-        authorization: token
-      }
-    }
-  */
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/cart/${id}`);
@@ -31,6 +20,29 @@ export const getCartThunk = (id) => {
     }
   };
 };
+
+export const updateCartThunk = (id, quantity, userId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/api/cart/${id}`, {quantity});
+      dispatch(getCartThunk(userId));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export const deleteItemThunk = (id, userId) => {
+  return async (dispatch) => {
+    try {
+      console.log('id in redux', id)
+      const { data } = await axios.delete(`/api/cart/${id}`);
+      dispatch(getCartThunk(userId))
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 
 export default function (state = {}, action) {
   switch (action.type) {

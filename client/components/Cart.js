@@ -1,14 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getCartThunk } from "../store/cart";
+import CartItem from "./CartItem";
 
 class Cart extends Component {
+  constructor() {
+    super();
+    this.onChange = this.onChange.bind(this);
+  }
   componentDidMount() {
     console.log(this.props.userId.id);
     this.props.getCartThunk(this.props.userId.id);
   }
+  onChange() {
+
+  }
   render() {
-    return <div>hi</div>;
+    const items = this.props.cart.order_products || []
+    console.log(items);
+    return (
+    <div>
+      {items.map((item) => {
+        return <CartItem item={item} key={item.id}/>
+      })}
+    </div>);
   }
 }
 
