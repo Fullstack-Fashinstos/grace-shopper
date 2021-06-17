@@ -25,6 +25,33 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.post("/:productId/:orderId", async (req, res, next) => {
+  try {
+    const existsInCart = await Order_Product.findOne({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+      },
+    });
+
+    let newCartItem;
+    if (existsInCart) {
+      existsInCart.quantity = existsInCart.quantity + 1;
+      existsInCart.save();
+    } else {
+      newCartItem = await Order_Product.create({
+        quantity: 2,
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+      });
+    }
+
+    res.send(newCartItem || existsInCart);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put("/:id", async (req, res, next) => {
   try {
     const product = await Order_Product.findByPk(req.params.id);

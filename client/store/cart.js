@@ -10,6 +10,8 @@ const getCart = (cart) => {
   };
 };
 
+
+
 export const getCartThunk = (id) => {
   return async (dispatch) => {
     try {
@@ -35,7 +37,6 @@ export const updateCartThunk = (id, quantity, userId) => {
 export const deleteItemThunk = (id, userId) => {
   return async (dispatch) => {
     try {
-      console.log('id in redux', id)
       const { data } = await axios.delete(`/api/cart/${id}`);
       dispatch(getCartThunk(userId))
     } catch (error) {
