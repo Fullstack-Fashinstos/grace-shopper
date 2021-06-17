@@ -10,8 +10,6 @@ const getCart = (cart) => {
   };
 };
 
-
-
 export const getCartThunk = (id) => {
   return async (dispatch) => {
     try {
@@ -22,6 +20,17 @@ export const getCartThunk = (id) => {
     }
   };
 };
+
+export const addToCartThunk = (productId, userId, quantity) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`/api/cart/${productId}/${userId}/${quantity}`);
+      dispatch(getCartThunk(userId));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 
 export const updateCartThunk = (id, quantity, userId) => {
   return async (dispatch) => {

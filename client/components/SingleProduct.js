@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchSingleProduct, sendEditProduct } from "../store/singleProduct";
+import { addToCartThunk } from "../store/cart";
 
 class SingleProduct extends React.Component {
   constructor() {
@@ -51,10 +52,12 @@ class SingleProduct extends React.Component {
     //console.log(event.target.type)
     const name = event.target.name;
     const val = event.target.value;
+    console.log('handle change', val)
 
-    if (event.target.type === "select") {
+    if (event.target.type === "select-one") {
+      console.log('inside handlechange', val)
       this.setState({
-        quantity: event.target.value,
+        quantity: Number(val),
       });
     }
     if (event.target.type === "text") {
@@ -86,8 +89,10 @@ class SingleProduct extends React.Component {
     }
   }
 
-  handleAdd(event) {
+  handleAdd(productId, userId) {
     //console.log(event.target)
+    console.log(this.state.quantity)
+    this.props.addToCart(productId, userId, Number(this.state.quantity))
     console.log("not yet implemented");
   }
 
@@ -119,7 +124,7 @@ class SingleProduct extends React.Component {
         <select type="select" onChange={this.handleChange}>
           {this.buildOptions()}
         </select>
-        <button onClick={this.handleAdd}>Add To Cart</button>
+        <button onClick={() => this.handleAdd(id, this.props.auth.id)}>Add To Cart</button>
         <h4>ADMIN</h4>
         <form id="new-message-form" onSubmit={this.handleSubmit}>
           <div className="input-group input-group-lg">
@@ -178,6 +183,7 @@ class SingleProduct extends React.Component {
 const mapState = (state) => {
   return {
     singleProduct: state.singleProduct,
+    auth: state.auth
   };
 };
 
@@ -189,6 +195,9 @@ const mapDispatch = (disptach) => {
     sendEditProduct: (product) => {
       disptach(sendEditProduct(product));
     },
+    addToCart: (productId, userId, quantity) => {
+      disptach(addToCartThunk(productId, userId, quantity))
+    }
   };
 };
 
