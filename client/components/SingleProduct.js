@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchSingleProduct } from '../store/singleProduct'
+import { fetchSingleProduct, sendEditProduct } from '../store/singleProduct'
 
 
 class SingleProduct extends React.Component {
@@ -11,72 +11,109 @@ class SingleProduct extends React.Component {
             imageUrl: '',
             descrpition: '',
             price: '',
-            stock: ''
+            stock: '',
+            quantity: 0
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleAdd = this.handleAdd.bind(this)
+        this.buildOptions = this.buildOptions.bind(this)
     }
+    // const {description, imageUrl, name, price, stock} = this.props.singleProduct
+    //     this.setState({
+    //         description: description, imageUrl: imageUrl, name: name, price: price, stock: price
+    //     })
 
     componentDidMount() {
         this.props.fetchSingleProduct(this.props.match.params.productId)
-        //const {description, imageUrl, name, price, stock} = this.props.singleProduct
-        //console.log(description)
-        // this.setState({
-        //     name: name,
-        //     imageUrl: imageUrl,
-        //     description: description,
-        //     price: price,
-        //     stock: stock
-
-        // })
     }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.singleProduct !== this.props.singleProduct) {
+            const {id, description, imageUrl, name, price, stock} = this.props.singleProduct
+            this.setState({
+                id: id, description: description, imageUrl: imageUrl, name: name, price: price, stock: stock
+        })
+        }
+    }
+
+
 
     handleSubmit(event) {
         event.preventDefault()
-        console.log(this.state)
+        this.props.sendEditProduct(this.state)
+
     }
 
     handleChange(event) {
-        
-        const type = event.target.name
+        //console.log(event.target.type)
+        const name = event.target.name
         const val = event.target.value
-        console.log(val)
-        if(type === 'name') {
+
+        if(event.target.type ==='select') {
             this.setState({
-                name: val
+                quantity: event.target.value
             })
         }
-        if(type === 'price') {
-            this.setState({
-                price: val
-            })
+        if(event.target.type === 'text') {
+
+            if(name === 'name') {
+                this.setState({
+                    name: val
+                })
+            }
+            if(name === 'price') {
+                this.setState({
+                    price: val
+                })
+            }
+            if(name === 'description') {
+                this.setState({
+                    description: val
+                })
+            }
+            if(name === 'stock') {
+                this.setState({
+                    stock: val
+                })
+            }
+            if(name === 'imageUrl') {
+                this.setState({
+                    imageUrl: val
+                })
+            }
         }
-        if(type === 'description') {
-            this.setState({
-                description: val
-            })
+    
+    }
+
+    handleAdd(event) {
+        //console.log(event.target)
+        console.log('not yet implemented')
+    }
+
+    buildOptions() {
+        const options = []
+        console.log(this.props.singleProduct.stock)
+        for(let i = 0; i <= this.state.stock; ++i) {
+            options.push(<option key={i} value={i}>{i}</option>)
         }
-        if(type === 'stock') {
-            this.setState({
-                stock: val
-            })
-        }
-        if(type === 'imageUrl') {
-            this.setState({
-                imageUrl: val
-            })
-        }
+        return options
     }
 
     render() {
         const { id, description, imageUrl, name, price, stock} = this.props.singleProduct
+        
         return (
             <div key={id}>Hello
                 <h3>{name}</h3>
-                <img src={imageUrl} />
+                <img src={imageUrl} width="300" height="300"/>
                 <p>{description}</p>
                 <p>{price}</p>
                 <p>{stock}</p>
+                <select type='select' onChange={this.handleChange}>
+                    {this.buildOptions()}
+                </select>
+                <button onClick={this.handleAdd}>Add To Cart</button>
 
                 <h4>ADMIN</h4>
                 <form id="new-message-form" onSubmit={this.handleSubmit}>
@@ -142,7 +179,9 @@ const mapState = (state) => {
 
 const mapDispatch = (disptach) => {
     return {
-        fetchSingleProduct: (id) => {disptach(fetchSingleProduct(id))}
+        fetchSingleProduct: (id) => {disptach(fetchSingleProduct(id))},
+        sendEditProduct: (product) => {disptach(sendEditProduct(product))}
+
     }
 }
 
