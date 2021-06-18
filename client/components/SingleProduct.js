@@ -46,11 +46,12 @@ class SingleProduct extends React.Component {
     }
 
     handleChange(event) {
-        //console.log(event.target.type)
+        console.log(event.target.type)
+        console.log(this.state.quantity)
         const name = event.target.name
         const val = event.target.value
 
-        if(event.target.type ==='select') {
+        if(event.target.type ==='select-one') {
             this.setState({
                 quantity: event.target.value
             })
