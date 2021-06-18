@@ -19,10 +19,6 @@ class SingleProduct extends React.Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.buildOptions = this.buildOptions.bind(this);
   }
-  // const {description, imageUrl, name, price, stock} = this.props.singleProduct
-  //     this.setState({
-  //         description: description, imageUrl: imageUrl, name: name, price: price, stock: price
-  //     })
 
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.productId);
@@ -52,10 +48,8 @@ class SingleProduct extends React.Component {
     //console.log(event.target.type)
     const name = event.target.name;
     const val = event.target.value;
-    console.log('handle change', val)
 
     if (event.target.type === "select-one") {
-      console.log('inside handlechange', val)
       this.setState({
         quantity: Number(val),
       });
@@ -90,15 +84,21 @@ class SingleProduct extends React.Component {
   }
 
   handleAdd(productId, userId) {
-    //console.log(event.target)
-    console.log(this.state.quantity)
-    this.props.addToCart(productId, userId, Number(this.state.quantity))
-    console.log("not yet implemented");
+    if (!userId) {
+      let currentCart = JSON.parse(window.localStorage.getItem("cart")) || {};
+      if (currentCart[productId]) {
+        currentCart[productId] += Number(this.state.quantity);
+      } else {
+        currentCart[productId] = Number(this.state.quantity);
+      }
+      window.localStorage.setItem("cart", JSON.stringify(currentCart));
+    } else {
+      this.props.addToCart(productId, userId, Number(this.state.quantity));
+    }
   }
 
   buildOptions() {
     const options = [];
-    console.log(this.props.singleProduct.stock);
     for (let i = 0; i <= this.state.stock; ++i) {
       options.push(
         <option key={i} value={i}>
@@ -124,7 +124,9 @@ class SingleProduct extends React.Component {
         <select type="select" onChange={this.handleChange}>
           {this.buildOptions()}
         </select>
-        <button onClick={() => this.handleAdd(id, this.props.auth.id)}>Add To Cart</button>
+        <button onClick={() => this.handleAdd(id, this.props.auth.id)}>
+          Add To Cart
+        </button>
         <h4>ADMIN</h4>
         <form id="new-message-form" onSubmit={this.handleSubmit}>
           <div className="input-group input-group-lg">
@@ -183,7 +185,7 @@ class SingleProduct extends React.Component {
 const mapState = (state) => {
   return {
     singleProduct: state.singleProduct,
-    auth: state.auth
+    auth: state.auth,
   };
 };
 
@@ -196,8 +198,8 @@ const mapDispatch = (disptach) => {
       disptach(sendEditProduct(product));
     },
     addToCart: (productId, userId, quantity) => {
-      disptach(addToCartThunk(productId, userId, quantity))
-    }
+      disptach(addToCartThunk(productId, userId, quantity));
+    },
   };
 };
 
