@@ -54,6 +54,9 @@ export default function singleProduct (state = {}, action) {
         case EDIT_PRODUCT: {
             return action.product
         }
+        case DELETE_PRODUCT: {
+            return !action.product
+        }
         default: return state
     }
 }

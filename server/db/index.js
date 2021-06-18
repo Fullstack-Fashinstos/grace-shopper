@@ -11,7 +11,6 @@ const Cart = require("./models/cart.js");
 
 // User.hasMany(Cart);
 // Cart.belongsTo(User);
-
 // Product.hasMany(Cart);
 // Cart.belongsTo(Product);
 
