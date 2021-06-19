@@ -54,6 +54,19 @@ export const deleteItemThunk = (id, userId) => {
   }
 }
 
+export const transferCart = (userId) => async dispatch => {
+  // Transers local cart to database on successful log in.
+  const localCart = JSON.parse(window.localStorage.getItem('cart'));
+  if (localCart) {
+    const keys = Object.keys(localCart);
+    for (let i = 0; i < keys.length; i++) {
+      const { data } = await axios.post(`/api/cart/${keys[i]}/${userId}/${localCart[keys[i]]}`)
+    }
+    window.localStorage.removeItem('cart');
+    dispatch(getCartThunk(userId));
+  }
+}
+
 export default function (state = {}, action) {
   switch (action.type) {
     case GET_CART:

@@ -21,7 +21,7 @@ class CartItem extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    if (this.props.auth.userId) {
+    if (this.props.auth.id) {
       this.props.updateQuantity(
         this.props.item.id,
         this.state.quantity,
@@ -31,12 +31,12 @@ class CartItem extends Component {
       let currentCart = JSON.parse(window.localStorage.getItem("cart")) || {};
       currentCart[this.props.item.id] = this.state.quantity;
       window.localStorage.setItem("cart", JSON.stringify(currentCart));
-      this.setState({ updatedQuantity: this.state.quantity });
     }
+    this.setState({ updatedQuantity: this.state.quantity });
   }
   handleDelete(event) {
     event.preventDefault();
-    if (this.props.auth.userId) {
+    if (this.props.auth.id) {
       this.props.deleteItem(this.props.item.id, this.props.auth.id);
     } else {
       let currentCart = JSON.parse(window.localStorage.getItem("cart")) || {};
