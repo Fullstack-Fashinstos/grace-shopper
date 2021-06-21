@@ -110,11 +110,12 @@ export class AllProducts extends React.Component {
     }
 }
 
-   const mapState = (state) => ({ products: state.products });
+const mapState = (state) => ({ products: state.products });
+
 
    const mapDispatch = (dispatch, { history }) => ({
      fetchProducts: () => dispatch(fetchProducts()),
      createProduct: (product) => dispatch(addProduct(product, history)),
    });
 
-   export default connect(mapState, mapDispatch)(AllProducts);
+export default connect(mapState, mapDispatch)(AllProducts);

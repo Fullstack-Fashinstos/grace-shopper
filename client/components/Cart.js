@@ -18,7 +18,7 @@ class Cart extends Component {
 
   async visitorCartSetUp() {
     let visitorCartAlpha = [];
-    const cart = JSON.parse(window.localStorage.getItem("cart"));
+    const cart = JSON.parse(window.localStorage.getItem("cart")) || {};
     const keys = Object.keys(cart);
     for (let i = 0; i < keys.length; i++) {
       const { data } = await axios.get(`/api/products/${keys[i]}`);
