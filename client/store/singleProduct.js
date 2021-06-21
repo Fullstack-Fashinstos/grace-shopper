@@ -1,62 +1,65 @@
-import axios from 'axios'
+import axios from "axios";
+import { fetchProducts } from "./products";
 
-const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
-const EDIT_PRODUCT = 'EDIT_PRODUCT'
-const DELETE_PRODUCT = 'DELETE_PRODUCT'
+const SET_SINGLE_PRODUCT = "SET_SINGLE_PRODUCT";
+const EDIT_PRODUCT = "EDIT_PRODUCT";
+const DELETE_PRODUCT = "DELETE_PRODUCT";
 
 const setSingleProduct = (product) => {
-    return {
-        type: SET_SINGLE_PRODUCT,
-        product
-    }
-}
+  return {
+    type: SET_SINGLE_PRODUCT,
+    product,
+  };
+};
 
 const editProduct = (product) => {
-    return {
-        type: EDIT_PRODUCT,
-        product
-    }
-}
+  return {
+    type: EDIT_PRODUCT,
+    product,
+  };
+};
 
 const deleteProduct = (product) => {
-    return {
-        type: DELETE_PRODUCT,
-        product
-    }
-}
+  return {
+    type: DELETE_PRODUCT,
+    product,
+  };
+};
 
 export const fetchSingleProduct = (id) => {
-    return async (dispatch) => {
-        const { data } = await axios.get(`/api/products/${id}`)
-        dispatch(setSingleProduct(data))
-    }
-}
+  return async (dispatch) => {
+    const { data } = await axios.get(`/api/products/${id}`);
+    dispatch(setSingleProduct(data));
+  };
+};
 
 export const sendEditProduct = (product) => {
-    return async (dispatch) => {
-        await axios.put(`/api/products/${product.id}`, product)
-        dispatch(editProduct(product))
-    }
-}
+  return async (dispatch) => {
+    await axios.put(`/api/products/${product.id}`, product);
+    dispatch(editProduct(product));
+  };
+};
 
 export const sendDeleteProduct = (product) => {
-    return async (dispatch) => {
-        const { data } = await axios.delete(`/api/products/${product.id}`)
-        dispatch(deleteProduct(data))
-    }
-}
+  return async (dispatch) => {
+    const { data } = await axios.delete(`/api/products/${product.id}`);
+    dispatch(fetchProducts());
+    //dispatch(deleteProduct(data))
+  };
+};
 
-export default function singleProduct (state = {}, action) {
-    switch(action.type) {
-        case SET_SINGLE_PRODUCT: {
-            return action.product
-        }
-        case EDIT_PRODUCT: {
-            return action.product
-        }
-        case DELETE_PRODUCT: {
-            return !action.product
-        }
-        default: return state
+export default function singleProduct(state = {}, action) {
+  switch (action.type) {
+    case SET_SINGLE_PRODUCT: {
+      return action.product;
     }
+    case EDIT_PRODUCT: {
+      return action.product;
+    }
+    case DELETE_PRODUCT: {
+      return !action.product;
+    }
+    default:
+      return state;
+  }
 }

@@ -1,6 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchSingleProduct, sendEditProduct, sendDeleteProduct } from "../store/singleProduct";
+import {
+  fetchSingleProduct,
+  sendEditProduct,
+  sendDeleteProduct,
+} from "../store/singleProduct";
 import { addToCartThunk } from "../store/cart";
 
 class SingleProduct extends React.Component {
@@ -18,7 +22,7 @@ class SingleProduct extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.buildOptions = this.buildOptions.bind(this);
-    this.handleDelete = this.handleDelete.bind(this)
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -34,7 +38,7 @@ class SingleProduct extends React.Component {
         description: description,
         imageUrl: imageUrl,
         name: name,
-        price: price,
+        price: price / 100,
         stock: stock,
       });
     }
@@ -98,8 +102,8 @@ class SingleProduct extends React.Component {
   }
 
   handleDelete() {
-    this.props.deleteProduct(this.props.singleProduct)
-    this.props.history.push(`/products`)
+    this.props.deleteProduct(this.props.singleProduct);
+    this.props.history.push(`/products`);
   }
 
   buildOptions() {
@@ -115,11 +119,11 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    const { id, description, imageUrl, name, price, stock } = this.props.singleProduct;
-    const { isAdmin } = this.props.auth
-      console.log(this.props.auth, 'in single')
-    return (
-        this.props.singleProduct ? 
+    const { id, description, imageUrl, name, price, stock } =
+      this.props.singleProduct;
+    const { isAdmin } = this.props.auth;
+    console.log(this.props.auth, "in single");
+    return this.props.singleProduct ? (
       <div key={id}>
         Hello
         <h3>{name}</h3>
@@ -130,64 +134,68 @@ class SingleProduct extends React.Component {
         <select type="select" onChange={this.handleChange}>
           {this.buildOptions()}
         </select>
-        <button onClick={() => this.handleAdd(id, this.props.auth.id)}>Add To Cart</button>
-        {isAdmin ? <div>  
-        <h4>ADMIN</h4>
-        <form id="new-message-form" onSubmit={this.handleSubmit}>
-          <div className="input-group input-group-lg">
-            <input
-              onChange={this.handleChange}
-              className="form-control"
-              type="text"
-              name="name"
-              value={this.state.name}
-              placeholder={name}
-            />
-            <input
-              onChange={this.handleChange}
-              className="form-control"
-              type="text"
-              name="description"
-              value={this.state.description}
-              placeholder={description}
-            />
-            <input
-              onChange={this.handleChange}
-              className="form-control"
-              type="text"
-              name="price"
-              value={this.state.price / 100}
-              placeholder={price}
-            />
-            <input
-              onChange={this.handleChange}
-              className="form-control"
-              type="text"
-              name="imageUrl"
-              value={this.state.imageUrl}
-              placeholder={imageUrl}
-            />
-            <input
-              onChange={this.handleChange}
-              className="form-control"
-              type="text"
-              name="stock"
-              value={this.state.stock}
-              placeholder={stock}
-            />
-            <span className="input-group-btn">
-              <button className="btn btn-default" type="submit">
-                Submit
-              </button>
-            </span>
+        <button onClick={() => this.handleAdd(id, this.props.auth.id)}>
+          Add To Cart
+        </button>
+        {isAdmin ? (
+          <div>
+            <h4>ADMIN</h4>
+            <form id="new-message-form" onSubmit={this.handleSubmit}>
+              <div className="input-group input-group-lg">
+                <input
+                  onChange={this.handleChange}
+                  className="form-control"
+                  type="text"
+                  name="name"
+                  value={this.state.name}
+                  placeholder={name}
+                />
+                <input
+                  onChange={this.handleChange}
+                  className="form-control"
+                  type="text"
+                  name="description"
+                  value={this.state.description}
+                  placeholder={description}
+                />
+                <input
+                  onChange={this.handleChange}
+                  className="form-control"
+                  type="text"
+                  name="price"
+                  value={this.state.price}
+                  placeholder={price}
+                />
+                <input
+                  onChange={this.handleChange}
+                  className="form-control"
+                  type="text"
+                  name="imageUrl"
+                  value={this.state.imageUrl}
+                  placeholder={imageUrl}
+                />
+                <input
+                  onChange={this.handleChange}
+                  className="form-control"
+                  type="text"
+                  name="stock"
+                  value={this.state.stock}
+                  placeholder={stock}
+                />
+                <span className="input-group-btn">
+                  <button className="btn btn-default" type="submit">
+                    Submit
+                  </button>
+                </span>
+              </div>
+            </form>
+            <button onClick={this.handleDelete}>Delete</button>
           </div>
-        </form>
-        <button onClick={this.handleDelete}>Delete</button>
-        </div> : 
-        
-       
-        </div >} 
-      </div> :
+        ) : (
+          <div />
+        )}
+      </div>
+    ) : (
       <h2>Error Could Not Find Product</h2>
     );
   }
@@ -209,12 +217,11 @@ const mapDispatch = (dispatch) => {
       dispatch(sendEditProduct(product));
     },
     addToCart: (productId, userId, quantity) => {
-      dispatch(addToCartThunk(productId, userId, quantity))
+      dispatch(addToCartThunk(productId, userId, quantity));
     },
     deleteProduct: (product) => {
-        dispatch(sendDeleteProduct(product))
-    } 
-    
+      dispatch(sendDeleteProduct(product));
+    },
   };
 };
 
