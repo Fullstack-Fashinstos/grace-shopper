@@ -4,6 +4,40 @@ import {Link} from "react-router-dom";
 import {fetchProducts} from '../store/products'
 
 export class AllProducts extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            name: "",
+            imageUrl: "",
+            descrpition: "",
+            price: "",
+            stock: "",
+            quantity: 0,
+          };
+          this.handleChange = this.handleChange.bind(this);
+          this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({
+          [event.target.name]: event.target.value,
+        });
+      }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.createProduct({ ...this.state });
+        this.setState({
+            id: id,
+            name: name,
+            description: description,
+            imageUrl: imageUrl,
+            price: price,
+            stock: stock,
+          });
+     }
+
+
     componentDidMount() {
         //thunk goes here
         this.props.fetchProducts();
@@ -13,6 +47,51 @@ export class AllProducts extends React.Component {
         const { products } = this.props;
         return (
             <div className="productList">
+               <form onSubmit={this.handleSubmit}>
+                <input
+              className="product-form"
+              type="text"
+              name="name"
+              value={this.state.name}
+              placeholder={name}
+              onChange={this.handleChange}
+            />
+            <input
+              className="product-form"
+              type="text"
+              name="description"
+              value={this.state.description}
+              placeholder={description}
+              onChange={this.handleChange}
+            />
+            <input
+              className="product-form"
+              type="text"
+              name="price"
+              value={this.state.price}
+              placeholder={price}
+              onChange={this.handleChange}
+            />
+            <input
+              className="product-form"
+              type="text"
+              name="imageUrl"
+              value={this.state.imageUrl}
+              placeholder={imageUrl}
+              onChange={this.handleChange}
+            />
+            <input
+              className="product-form"
+              type="text"
+              name="stock"
+              value={this.state.stock}
+              placeholder={stock}
+              onChange={this.handleChange}
+            />
+              <button type="submit">
+                Submit
+              </button>
+              </form>
                 {products.length > 0 ? products.map((product) => {
                     return (
                         <div key={product.id}>
@@ -33,6 +112,7 @@ export class AllProducts extends React.Component {
 
    const mapDispatch = (dispatch, { history }) => ({
      fetchProducts: () => dispatch(fetchProducts()),
+     createProduct: () => dispatch(addProduct(product, history)),
    });
 
    export default connect(mapState, mapDispatch)(AllProducts);
