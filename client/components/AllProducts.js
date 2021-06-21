@@ -1,7 +1,7 @@
 import React from "react"
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {fetchProducts} from '../store/products'
+import {fetchProducts, addProduct} from '../store/products'
 
 export class AllProducts extends React.Component {
     constructor() {
@@ -9,7 +9,7 @@ export class AllProducts extends React.Component {
         this.state = {
             name: "",
             imageUrl: "",
-            descrpition: "",
+            description: "",
             price: "",
             stock: "",
             quantity: 0,
@@ -45,6 +45,8 @@ export class AllProducts extends React.Component {
 
     render() {
         const { products } = this.props;
+        const { id, description, imageUrl, name, price, stock } =
+        products;
         return (
             <div className="productList">
                <form onSubmit={this.handleSubmit}>
@@ -53,7 +55,7 @@ export class AllProducts extends React.Component {
               type="text"
               name="name"
               value={this.state.name}
-              placeholder={name}
+              placeholder="Name"
               onChange={this.handleChange}
             />
             <input
@@ -61,7 +63,7 @@ export class AllProducts extends React.Component {
               type="text"
               name="description"
               value={this.state.description}
-              placeholder={description}
+              placeholder="Description"
               onChange={this.handleChange}
             />
             <input
@@ -69,7 +71,7 @@ export class AllProducts extends React.Component {
               type="text"
               name="price"
               value={this.state.price}
-              placeholder={price}
+              placeholder="Price"
               onChange={this.handleChange}
             />
             <input
@@ -77,7 +79,7 @@ export class AllProducts extends React.Component {
               type="text"
               name="imageUrl"
               value={this.state.imageUrl}
-              placeholder={imageUrl}
+              placeholder="Image Url"
               onChange={this.handleChange}
             />
             <input
@@ -85,7 +87,7 @@ export class AllProducts extends React.Component {
               type="text"
               name="stock"
               value={this.state.stock}
-              placeholder={stock}
+              placeholder="Stock"
               onChange={this.handleChange}
             />
               <button type="submit">
@@ -112,7 +114,7 @@ export class AllProducts extends React.Component {
 
    const mapDispatch = (dispatch, { history }) => ({
      fetchProducts: () => dispatch(fetchProducts()),
-     createProduct: () => dispatch(addProduct(product, history)),
+     createProduct: (product) => dispatch(addProduct(product, history)),
    });
 
    export default connect(mapState, mapDispatch)(AllProducts);

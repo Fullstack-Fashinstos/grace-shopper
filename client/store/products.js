@@ -21,8 +21,9 @@ export const fetchProducts = () => {
 
 export const addProduct = (product, history) => {
     return async (dispatch) => {
-        const { data: created} = await axios.post("/api/campuses", campus);
-        dispatch(setSingleCampus(data));
+        const { data: created} = await axios.post("/api/products", product);
+        dispatch(setProducts(created));
+        history.push("/");
     };
 };
 
