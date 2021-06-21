@@ -27,7 +27,6 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
-
     return (
       <div>
         {isLoggedIn ? (
@@ -39,6 +38,7 @@ class Routes extends Component {
               exact
               path="/products/:productId"
               component={SingleProduct}
+              
             />
             <Redirect to="/home" />
           </Switch>

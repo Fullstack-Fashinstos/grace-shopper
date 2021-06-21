@@ -25,9 +25,13 @@ const deleteProduct = (product) => {
     }
 }
 
-export const fetchSingleProduct = (id) => {
+export const fetchSingleProduct = (id, auth) => {
     return async (dispatch) => {
-        const { data } = await axios.get(`/api/products/${id}`)
+        const { data } = await axios.get(`/api/products/${id}`, { 
+            headers: {
+                admin: auth
+            }
+        })
         dispatch(setSingleProduct(data))
     }
 }

@@ -1,10 +1,12 @@
 const router = require('express').Router({mergeParams: true})
 const { models: { Product }} = require('../db')
+const adminAuth = require('./utils')
 module.exports = router
 
 
-router.get('/', async (req, res, next) => {
+router.get('/', adminAuth, async (req, res, next) => {
     try {
+        //console.log(req.headers.isAdmin, 'in route')
         const product = await Product.findByPk(req.params.productId)
         res.status(200).send(product)
     } catch (error) {

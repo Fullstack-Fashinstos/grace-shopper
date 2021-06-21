@@ -26,7 +26,7 @@ class SingleProduct extends React.Component {
   //     })
 
   componentDidMount() {
-    this.props.fetchSingleProduct(this.props.match.params.productId);
+    this.props.fetchSingleProduct(this.props.match.params.productId, this.props.auth.isAdmin);
   }
 
   componentDidUpdate(prevProps) {
@@ -53,10 +53,8 @@ class SingleProduct extends React.Component {
     //console.log(event.target.type)
     const name = event.target.name;
     const val = event.target.value;
-    console.log('handle change', val)
 
     if (event.target.type === "select-one") {
-      console.log('inside handlechange', val)
       this.setState({
         quantity: Number(val),
       });
@@ -91,10 +89,7 @@ class SingleProduct extends React.Component {
   }
 
   handleAdd(productId, userId) {
-    //console.log(event.target)
-    console.log(this.state.quantity)
     this.props.addToCart(productId, userId, Number(this.state.quantity))
-    console.log("not yet implemented");
   }
 
   handleDelete() {
@@ -104,7 +99,6 @@ class SingleProduct extends React.Component {
 
   buildOptions() {
     const options = [];
-    console.log(this.props.singleProduct.stock);
     for (let i = 0; i <= this.state.stock; ++i) {
       options.push(
         <option key={i} value={i}>
@@ -118,16 +112,16 @@ class SingleProduct extends React.Component {
   render() {
     const { id, description, imageUrl, name, price, stock } = this.props.singleProduct;
     const { isAdmin } = this.props.auth
-      console.log(this.props.auth, 'in single')
+      console.log(this.props.auth.isAdmin)
     return (
         this.props.singleProduct ? 
       <div key={id}>
         Hello
         <h3>{name}</h3>
         <img src={imageUrl} width="300" height="300" />
-        <p>{description}</p>
-        <p>{price / 100}</p>
-        <p>{stock}</p>
+        {description ? <p>{description}</p> : ''}
+        {price ? <p>{price / 100}</p> : ''}
+        {stock ? <p>{stock}</p> : ''}
         <select type="select" onChange={this.handleChange}>
           {this.buildOptions()}
         </select>
@@ -194,17 +188,17 @@ class SingleProduct extends React.Component {
   }
 }
 
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
   return {
     singleProduct: state.singleProduct,
-    auth: state.auth
+    auth: state.auth,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchSingleProduct: (id) => {
-      dispatch(fetchSingleProduct(id));
+    fetchSingleProduct: (id, auth) => {
+      dispatch(fetchSingleProduct(id, auth));
     },
     sendEditProduct: (product) => {
       dispatch(sendEditProduct(product));
