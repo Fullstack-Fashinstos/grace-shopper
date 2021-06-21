@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchSingleProduct, sendEditProduct } from "../store/singleProduct";
+import { fetchSingleProduct, sendEditProduct, sendDeleteProduct } from "../store/singleProduct";
 import { addToCartThunk } from "../store/cart";
 
 class SingleProduct extends React.Component {
@@ -18,6 +18,7 @@ class SingleProduct extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.buildOptions = this.buildOptions.bind(this);
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -45,7 +46,6 @@ class SingleProduct extends React.Component {
   }
 
   handleChange(event) {
-    //console.log(event.target.type)
     const name = event.target.name;
     const val = event.target.value;
 
@@ -97,6 +97,11 @@ class SingleProduct extends React.Component {
     }
   }
 
+  handleDelete() {
+    this.props.deleteProduct(this.props.singleProduct)
+    this.props.history.push(`/products`)
+  }
+
   buildOptions() {
     const options = [];
     for (let i = 0; i <= this.state.stock; ++i) {
@@ -110,10 +115,11 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    const { id, description, imageUrl, name, price, stock } =
-      this.props.singleProduct;
-
+    const { id, description, imageUrl, name, price, stock } = this.props.singleProduct;
+    const { isAdmin } = this.props.auth
+      console.log(this.props.auth, 'in single')
     return (
+        this.props.singleProduct ? 
       <div key={id}>
         Hello
         <h3>{name}</h3>
@@ -124,9 +130,8 @@ class SingleProduct extends React.Component {
         <select type="select" onChange={this.handleChange}>
           {this.buildOptions()}
         </select>
-        <button onClick={() => this.handleAdd(id, this.props.auth.id)}>
-          Add To Cart
-        </button>
+        <button onClick={() => this.handleAdd(id, this.props.auth.id)}>Add To Cart</button>
+        {isAdmin ? <div>  
         <h4>ADMIN</h4>
         <form id="new-message-form" onSubmit={this.handleSubmit}>
           <div className="input-group input-group-lg">
@@ -151,7 +156,7 @@ class SingleProduct extends React.Component {
               className="form-control"
               type="text"
               name="price"
-              value={this.state.price}
+              value={this.state.price / 100}
               placeholder={price}
             />
             <input
@@ -177,7 +182,13 @@ class SingleProduct extends React.Component {
             </span>
           </div>
         </form>
-      </div>
+        <button onClick={this.handleDelete}>Delete</button>
+        </div> : 
+        
+       
+        </div >} 
+      </div> :
+      <h2>Error Could Not Find Product</h2>
     );
   }
 }
@@ -189,17 +200,21 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = (disptach) => {
+const mapDispatch = (dispatch) => {
   return {
     fetchSingleProduct: (id) => {
-      disptach(fetchSingleProduct(id));
+      dispatch(fetchSingleProduct(id));
     },
     sendEditProduct: (product) => {
-      disptach(sendEditProduct(product));
+      dispatch(sendEditProduct(product));
     },
     addToCart: (productId, userId, quantity) => {
-      disptach(addToCartThunk(productId, userId, quantity));
+      dispatch(addToCartThunk(productId, userId, quantity))
     },
+    deleteProduct: (product) => {
+        dispatch(sendDeleteProduct(product))
+    } 
+    
   };
 };
 
