@@ -20,10 +20,6 @@ class SingleProduct extends React.Component {
     this.buildOptions = this.buildOptions.bind(this);
     this.handleDelete = this.handleDelete.bind(this)
   }
-  // const {description, imageUrl, name, price, stock} = this.props.singleProduct
-  //     this.setState({
-  //         description: description, imageUrl: imageUrl, name: name, price: price, stock: price
-  //     })
 
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.productId);
@@ -50,13 +46,10 @@ class SingleProduct extends React.Component {
   }
 
   handleChange(event) {
-    //console.log(event.target.type)
     const name = event.target.name;
     const val = event.target.value;
-    console.log('handle change', val)
 
     if (event.target.type === "select-one") {
-      console.log('inside handlechange', val)
       this.setState({
         quantity: Number(val),
       });
@@ -91,10 +84,17 @@ class SingleProduct extends React.Component {
   }
 
   handleAdd(productId, userId) {
-    //console.log(event.target)
-    console.log(this.state.quantity)
-    this.props.addToCart(productId, userId, Number(this.state.quantity))
-    console.log("not yet implemented");
+    if (!userId) {
+      let currentCart = JSON.parse(window.localStorage.getItem("cart")) || {};
+      if (currentCart[productId]) {
+        currentCart[productId] += Number(this.state.quantity);
+      } else {
+        currentCart[productId] = Number(this.state.quantity);
+      }
+      window.localStorage.setItem("cart", JSON.stringify(currentCart));
+    } else {
+      this.props.addToCart(productId, userId, Number(this.state.quantity));
+    }
   }
 
   handleDelete() {
@@ -104,7 +104,6 @@ class SingleProduct extends React.Component {
 
   buildOptions() {
     const options = [];
-    console.log(this.props.singleProduct.stock);
     for (let i = 0; i <= this.state.stock; ++i) {
       options.push(
         <option key={i} value={i}>
@@ -187,7 +186,7 @@ class SingleProduct extends React.Component {
         </div> : 
         
        
-        <div />} 
+        </div >} 
       </div> :
       <h2>Error Could Not Find Product</h2>
     );
@@ -197,7 +196,7 @@ class SingleProduct extends React.Component {
 const mapState = (state) => {
   return {
     singleProduct: state.singleProduct,
-    auth: state.auth
+    auth: state.auth,
   };
 };
 
@@ -215,6 +214,7 @@ const mapDispatch = (dispatch) => {
     deleteProduct: (product) => {
         dispatch(sendDeleteProduct(product))
     } 
+    
   };
 };
 
