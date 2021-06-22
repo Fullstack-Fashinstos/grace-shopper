@@ -6,18 +6,41 @@ import { checkoutCartThunk } from "../store/cart";
 export class CheckoutBox extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      message: ''
+    }
     this.handleCheckout = this.handleCheckout.bind(this);
+    this.verifyStock = this.verifyStock.bind(this);
   }
-  handleCheckout() {
+  verifyStock() {
+    let cart = [];
     if (this.props.userId) {
-      this.props.checkoutCart(
-        this.props.memberCart.order_products,
-        this.props.userId
-      );
+      cart = this.props.memberCart.order_products;
     } else {
-      this.props.checkoutCart(this.props.visitorCart.order_products, null);
-      window.localStorage.setItem("cart", JSON.stringify({}));
-      this.props.rerenderParentCallback();
+      cart = this.props.visitorCart;
+    }
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].quantity > cart[i].product.stock) {
+        return false;
+      }
+    }
+    return true;
+  }
+  handleCheckout(event) {
+    if(this.verifyStock()) {
+      if (this.props.userId) {
+        this.props.checkoutCart(
+          this.props.memberCart.order_products,
+          this.props.userId
+        );
+      } else {
+        this.props.checkoutCart(this.props.visitorCart, null);
+        window.localStorage.setItem("cart", JSON.stringify({}));
+        this.props.rerenderParentCallback();
+      }
+    } else {
+      event.preventDefault();
+      this.setState({warning: "Insufficient stock remaining. Cannot complete transaction."})
     }
   }
   render() {
@@ -28,6 +51,7 @@ export class CheckoutBox extends Component {
             Checkout
           </button>
         </Link>
+        <h5>{this.state.warning}</h5>
       </div>
     );
   }
