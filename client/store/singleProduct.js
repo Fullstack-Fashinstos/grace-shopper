@@ -19,31 +19,42 @@ const editProduct = (product) => {
   };
 };
 
-const deleteProduct = (product) => {
-  return {
-    type: DELETE_PRODUCT,
-    product,
-  };
-};
+// const deleteProduct = (product) => {
+//   return {
+//     type: DELETE_PRODUCT,
+//     product,
+//     user
+//   };
+// };
 
-export const fetchSingleProduct = (id) => {
-  return async (dispatch) => {
-    const { data } = await axios.get(`/api/products/${id}`);
-    dispatch(setSingleProduct(data));
-  };
-};
+export const fetchSingleProduct = (id, auth) => {
+    return async (dispatch) => {
+        const { data } = await axios.get(`/api/products/${id}`, { 
+            headers: {
+                admin: auth
+            }
+        })
+        dispatch(setSingleProduct(data))
+    }
+}
 
-export const sendEditProduct = (product) => {
+export const sendEditProduct = (product, user) => {
   return async (dispatch) => {
-    await axios.put(`/api/products/${product.id}`, product);
+    await axios.put(`/api/products/${product.id}`, { product, user });
     dispatch(editProduct(product));
   };
 };
 
-export const sendDeleteProduct = (product) => {
+export const sendDeleteProduct = (product, user) => {
+    console.log(user)
   return async (dispatch) => {
-    const { data } = await axios.delete(`/api/products/${product.id}`);
+    const { data } = await axios.delete(`/api/products/${product.id}`, {
+        headers: {
+            admin: user.isAdmin
+        }
+    });
     dispatch(fetchProducts());
+    
     //dispatch(deleteProduct(data))
   };
 };

@@ -26,7 +26,7 @@ class SingleProduct extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchSingleProduct(this.props.match.params.productId);
+    this.props.fetchSingleProduct(this.props.match.params.productId, this.props.auth.isAdmin);
   }
 
   componentDidUpdate(prevProps) {
@@ -46,7 +46,8 @@ class SingleProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.sendEditProduct(this.state);
+    console.log(this.props.auth)
+    this.props.sendEditProduct(this.state, this.props.auth);
   }
 
   handleChange(event) {
@@ -102,7 +103,7 @@ class SingleProduct extends React.Component {
   }
 
   handleDelete() {
-    this.props.deleteProduct(this.props.singleProduct);
+    this.props.deleteProduct(this.props.singleProduct, this.props.auth);
     this.props.history.push(`/products`);
   }
 
@@ -119,18 +120,18 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    const { id, description, imageUrl, name, price, stock } =
-      this.props.singleProduct;
-    const { isAdmin } = this.props.auth;
-    console.log(this.props.auth, "in single");
-    return this.props.singleProduct ? (
+    const { id, description, imageUrl, name, price, stock } = this.props.singleProduct;
+    const { isAdmin } = this.props.auth
+      console.log(this.props.auth.isAdmin)
+    return (
+        //this.props.singleProduct ? 
       <div key={id}>
         Hello
         <h3>{name}</h3>
         <img src={imageUrl} width="300" height="300" />
-        <p>{description}</p>
-        <p>{price / 100}</p>
-        <p>{stock}</p>
+        {description ? <p>{description}</p> : ''}
+        {price ? <p>{price / 100}</p> : ''}
+        {stock ? <p>{stock}</p> : ''}
         <select type="select" onChange={this.handleChange}>
           {this.buildOptions()}
         </select>
@@ -195,9 +196,10 @@ class SingleProduct extends React.Component {
           <div />
         )}
       </div>
-    ) : (
-      <h2>Error Could Not Find Product</h2>
-    );
+    ) 
+    //: (
+    //   <h2>Error Could Not Find Product</h2>
+    // );
   }
 }
 
@@ -210,17 +212,17 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchSingleProduct: (id) => {
-      dispatch(fetchSingleProduct(id));
+    fetchSingleProduct: (id, auth) => {
+      dispatch(fetchSingleProduct(id, auth));
     },
-    sendEditProduct: (product) => {
-      dispatch(sendEditProduct(product));
+    sendEditProduct: (product, user) => {
+      dispatch(sendEditProduct(product, user));
     },
     addToCart: (productId, userId, quantity) => {
       dispatch(addToCartThunk(productId, userId, quantity));
     },
-    deleteProduct: (product) => {
-      dispatch(sendDeleteProduct(product));
+    deleteProduct: (product, user) => {
+      dispatch(sendDeleteProduct(product, user));
     },
   };
 };
