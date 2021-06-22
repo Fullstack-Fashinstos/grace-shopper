@@ -1,15 +1,19 @@
-const router = require('express').Router()
-const { models: { Product }} = require('../db')
-module.exports = router
+const router = require("express").Router();
+const {
+  models: { Product },
+} = require("../db");
+module.exports = router;
 
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
-    const products = await Product.findAll()
+    const products = await Product.findAll({
+      order: [["createdAt", "DESC"]],
+    });
     res.json(products);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 router.post("/", async (req, res, next) => {
   try {
@@ -17,4 +21,4 @@ router.post("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
+});
