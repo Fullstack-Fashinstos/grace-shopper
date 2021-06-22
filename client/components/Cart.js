@@ -62,7 +62,7 @@ class Cart extends Component {
     }
     return (
       <div>
-        <CheckoutBox />
+        <CheckoutBox rerenderParentCallback={this.rerenderParentCallback} visitorCart={this.state.visitorCart} />
         {items.map((item) => {
           return (
             <CartItem

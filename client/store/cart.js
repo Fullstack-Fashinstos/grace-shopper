@@ -67,6 +67,16 @@ export const transferCart = (userId) => async dispatch => {
   }
 }
 
+export const checkoutCartThunk = (products, userId) => async dispatch => {
+  if (userId) {
+    const { data } = await axios.post(`/api/checkout/${userId}`)
+  }
+  for (let i = 0; i < products.length; i++) {
+    console.log("inside loop", products)
+    await axios.put(`/api/checkout/${products[i].product.id}`, {quantity: products[i].quantity})
+  }
+}
+
 export default function (state = {}, action) {
   switch (action.type) {
     case GET_CART:
