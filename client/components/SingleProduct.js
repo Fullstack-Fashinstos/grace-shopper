@@ -1,6 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchSingleProduct, sendEditProduct, sendDeleteProduct } from "../store/singleProduct";
+import {
+  fetchSingleProduct,
+  sendEditProduct,
+  sendDeleteProduct,
+} from "../store/singleProduct";
 import { addToCartThunk } from "../store/cart";
 
 class SingleProduct extends React.Component {
@@ -18,12 +22,8 @@ class SingleProduct extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.buildOptions = this.buildOptions.bind(this);
-    this.handleDelete = this.handleDelete.bind(this)
+    this.handleDelete = this.handleDelete.bind(this);
   }
-  // const {description, imageUrl, name, price, stock} = this.props.singleProduct
-  //     this.setState({
-  //         description: description, imageUrl: imageUrl, name: name, price: price, stock: price
-  //     })
 
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.productId, this.props.auth.isAdmin);
@@ -38,7 +38,7 @@ class SingleProduct extends React.Component {
         description: description,
         imageUrl: imageUrl,
         name: name,
-        price: price,
+        price: price / 100,
         stock: stock,
       });
     }
@@ -46,11 +46,11 @@ class SingleProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.sendEditProduct(this.state);
+    console.log(this.props.auth)
+    this.props.sendEditProduct(this.state, this.props.auth);
   }
 
   handleChange(event) {
-    //console.log(event.target.type)
     const name = event.target.name;
     const val = event.target.value;
 
@@ -89,12 +89,22 @@ class SingleProduct extends React.Component {
   }
 
   handleAdd(productId, userId) {
-    this.props.addToCart(productId, userId, Number(this.state.quantity))
+    if (!userId) {
+      let currentCart = JSON.parse(window.localStorage.getItem("cart")) || {};
+      if (currentCart[productId]) {
+        currentCart[productId] += Number(this.state.quantity);
+      } else {
+        currentCart[productId] = Number(this.state.quantity);
+      }
+      window.localStorage.setItem("cart", JSON.stringify(currentCart));
+    } else {
+      this.props.addToCart(productId, userId, Number(this.state.quantity));
+    }
   }
 
   handleDelete() {
-    this.props.deleteProduct(this.props.singleProduct)
-    this.props.history.push(`/products`)
+    this.props.deleteProduct(this.props.singleProduct, this.props.auth);
+    this.props.history.push(`/products`);
   }
 
   buildOptions() {
@@ -114,7 +124,7 @@ class SingleProduct extends React.Component {
     const { isAdmin } = this.props.auth
       console.log(this.props.auth.isAdmin)
     return (
-        this.props.singleProduct ? 
+        //this.props.singleProduct ? 
       <div key={id}>
         Hello
         <h3>{name}</h3>
@@ -125,70 +135,75 @@ class SingleProduct extends React.Component {
         <select type="select" onChange={this.handleChange}>
           {this.buildOptions()}
         </select>
-        <button onClick={() => this.handleAdd(id, this.props.auth.id)}>Add To Cart</button>
-        {isAdmin ? <div>  
-        <h4>ADMIN</h4>
-        <form id="new-message-form" onSubmit={this.handleSubmit}>
-          <div className="input-group input-group-lg">
-            <input
-              onChange={this.handleChange}
-              className="form-control"
-              type="text"
-              name="name"
-              value={this.state.name}
-              placeholder={name}
-            />
-            <input
-              onChange={this.handleChange}
-              className="form-control"
-              type="text"
-              name="description"
-              value={this.state.description}
-              placeholder={description}
-            />
-            <input
-              onChange={this.handleChange}
-              className="form-control"
-              type="text"
-              name="price"
-              value={this.state.price / 100}
-              placeholder={price}
-            />
-            <input
-              onChange={this.handleChange}
-              className="form-control"
-              type="text"
-              name="imageUrl"
-              value={this.state.imageUrl}
-              placeholder={imageUrl}
-            />
-            <input
-              onChange={this.handleChange}
-              className="form-control"
-              type="text"
-              name="stock"
-              value={this.state.stock}
-              placeholder={stock}
-            />
-            <span className="input-group-btn">
-              <button className="btn btn-default" type="submit">
-                Submit
-              </button>
-            </span>
+        <button onClick={() => this.handleAdd(id, this.props.auth.id)}>
+          Add To Cart
+        </button>
+        {isAdmin ? (
+          <div>
+            <h4>ADMIN</h4>
+            <form id="new-message-form" onSubmit={this.handleSubmit}>
+              <div className="input-group input-group-lg">
+                <input
+                  onChange={this.handleChange}
+                  className="form-control"
+                  type="text"
+                  name="name"
+                  value={this.state.name}
+                  placeholder={name}
+                />
+                <input
+                  onChange={this.handleChange}
+                  className="form-control"
+                  type="text"
+                  name="description"
+                  value={this.state.description}
+                  placeholder={description}
+                />
+                <input
+                  onChange={this.handleChange}
+                  className="form-control"
+                  type="text"
+                  name="price"
+                  value={this.state.price}
+                  placeholder={price}
+                />
+                <input
+                  onChange={this.handleChange}
+                  className="form-control"
+                  type="text"
+                  name="imageUrl"
+                  value={this.state.imageUrl}
+                  placeholder={imageUrl}
+                />
+                <input
+                  onChange={this.handleChange}
+                  className="form-control"
+                  type="text"
+                  name="stock"
+                  value={this.state.stock}
+                  placeholder={stock}
+                />
+                <span className="input-group-btn">
+                  <button className="btn btn-default" type="submit">
+                    Submit
+                  </button>
+                </span>
+              </div>
+            </form>
+            <button onClick={this.handleDelete}>Delete</button>
           </div>
-        </form>
-        <button onClick={this.handleDelete}>Delete</button>
-        </div> : 
-        
-       
-        <div />} 
-      </div> :
-      <h2>Error Could Not Find Product</h2>
-    );
+        ) : (
+          <div />
+        )}
+      </div>
+    ) 
+    //: (
+    //   <h2>Error Could Not Find Product</h2>
+    // );
   }
 }
 
-const mapState = (state, ownProps) => {
+const mapState = (state) => {
   return {
     singleProduct: state.singleProduct,
     auth: state.auth,
@@ -200,15 +215,15 @@ const mapDispatch = (dispatch) => {
     fetchSingleProduct: (id, auth) => {
       dispatch(fetchSingleProduct(id, auth));
     },
-    sendEditProduct: (product) => {
-      dispatch(sendEditProduct(product));
+    sendEditProduct: (product, user) => {
+      dispatch(sendEditProduct(product, user));
     },
     addToCart: (productId, userId, quantity) => {
-      dispatch(addToCartThunk(productId, userId, quantity))
+      dispatch(addToCartThunk(productId, userId, quantity));
     },
-    deleteProduct: (product) => {
-        dispatch(sendDeleteProduct(product))
-    } 
+    deleteProduct: (product, user) => {
+      dispatch(sendDeleteProduct(product, user));
+    },
   };
 };
 

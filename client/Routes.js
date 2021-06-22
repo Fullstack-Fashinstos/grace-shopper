@@ -15,6 +15,7 @@ import Home from "./components/Home";
 import Cart from "./components/Cart";
 import SingleProduct from "./components/SingleProduct";
 import AllProducts from "./components/AllProducts";
+import Checkout from "./components/Checkout";
 import { me } from "./store";
 
 /**
@@ -40,14 +41,17 @@ class Routes extends Component {
               component={SingleProduct}
               
             />
+            <Route exact path="/checkout" component={Checkout} />
             <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
             <Route path="/" exact component={Login} />
+            <Route path="/cart" component={Cart} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/products" component={AllProducts} />
+            <Route exact path="/checkout" component={Checkout} />
             <Route
               exact
               path="/products/:productId"

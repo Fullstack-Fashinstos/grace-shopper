@@ -1,20 +1,46 @@
 //const User = require('./users')
 const jwt = require("jsonwebtoken");
 
-const adminAuth = async (req, res, next) => {
-    try {
-        //console.log(req.headers, 'in adminAuth')
-        if(req.headers.admin === 'true') {
-            req.isAdmin = true
-            next()
-        } else {
-            req.isAdmin = false
-            next()
-        }
+// const generateToken = async (req, res, next) => {
+//     try {
+//         const token = await jwt.sign({product: re})
+//     } catch (error) {
+        
+//     }
+// }
+const userAuth = async (req, res, next) => {
+    next()
+}
 
-    } catch (error) {
-        next(err)
+const adminHeaderAuth = async (req, res, next) => {
+    if(req.headers.admin === 'true') {
+        next()
+    } else {
+        const error = new Error('unauth')
+        error.status = 403
+        throw error
     }
 }
 
-module.exports = adminAuth
+
+const adminAuth = async (req, res, next) => {
+    try {
+        console.log(req.headers, 'in adminAuth')
+        if(req.body.isAdmin) {
+            next()
+        } 
+        if(req.body.user.isAdmin) {
+            next()
+        } else {
+            const error = new Error('unauth')
+            error.status = 403
+            throw error
+           
+        }
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports = {adminAuth, userAuth, adminHeaderAuth}
