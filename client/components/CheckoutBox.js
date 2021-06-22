@@ -15,7 +15,7 @@ export class CheckoutBox extends Component {
         this.props.userId
       );
     } else {
-      this.props.checkoutCart(this.props.visitorCart.order_products, null);
+      this.props.checkoutCart(this.props.visitorCart, null);
       window.localStorage.setItem("cart", JSON.stringify({}));
       this.props.rerenderParentCallback();
     }
