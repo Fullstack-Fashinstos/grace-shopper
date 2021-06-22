@@ -26,7 +26,10 @@ class SingleProduct extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchSingleProduct(this.props.match.params.productId, this.props.auth.isAdmin);
+    this.props.fetchSingleProduct(
+      this.props.match.params.productId,
+      this.props.auth.isAdmin
+    );
   }
 
   componentDidUpdate(prevProps) {
@@ -46,7 +49,6 @@ class SingleProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.props.auth)
     this.props.sendEditProduct(this.state, this.props.auth);
   }
 
@@ -120,18 +122,18 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    const { id, description, imageUrl, name, price, stock } = this.props.singleProduct;
-    const { isAdmin } = this.props.auth
-      console.log(this.props.auth.isAdmin)
+    const { id, description, imageUrl, name, price, stock } =
+      this.props.singleProduct;
+    const { isAdmin } = this.props.auth;
     return (
-        //this.props.singleProduct ? 
+      //this.props.singleProduct ?
       <div key={id}>
         Hello
         <h3>{name}</h3>
         <img src={imageUrl} width="300" height="300" />
-        {description ? <p>{description}</p> : ''}
-        {price ? <p>{price / 100}</p> : ''}
-        {stock ? <p>{stock}</p> : ''}
+        {description ? <p>{description}</p> : ""}
+        {price ? <p>{price / 100}</p> : ""}
+        {stock ? <p>{stock}</p> : ""}
         <select type="select" onChange={this.handleChange}>
           {this.buildOptions()}
         </select>
@@ -196,7 +198,7 @@ class SingleProduct extends React.Component {
           <div />
         )}
       </div>
-    ) 
+    );
     //: (
     //   <h2>Error Could Not Find Product</h2>
     // );
