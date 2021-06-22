@@ -4,6 +4,7 @@ module.exports = router;
 router.use("/users", require("./users"));
 
 router.use("/cart", require("./cart.js"));
+router.use("/checkout", require("./checkout.js"))
 router.use('/products', require('./products'))
 router.use('/products/:productId', require('./singleProduct'))
 

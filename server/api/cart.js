@@ -29,7 +29,8 @@ router.post("/:productId/:userId/:quantity", async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {
-        userId: req.params.userId
+        userId: req.params.userId,
+        fullfilled: false
       } })
     const existsInCart = await Order_Product.findOne({
       where: {
@@ -74,3 +75,4 @@ router.delete("/:id", async (req, res, next) => {
     next(err);
   }
 });
+
