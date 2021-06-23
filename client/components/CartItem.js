@@ -63,9 +63,9 @@ class CartItem extends Component {
       <div className="cartItem">
         <img src={item.product.imageUrl} width="200px" />
         <h5>{item.product.name}</h5>
-        <h5>{item.product.price / 100}</h5>
+        <h5>${item.product.price / 100}</h5>
         <h5>{item.product.description}</h5>
-        <h5>{this.state.updatedQuantity}</h5>
+        <h5>Quantity : {this.state.updatedQuantity}</h5>
         <select name="quantity" onChange={this.handleChange}>
           {quantArray.map((element, index) => (
             <option value={index + 1} key={index}>
