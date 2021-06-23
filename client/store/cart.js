@@ -141,8 +141,8 @@ export const checkoutCartThunk = (products, userId) => async (dispatch) => {
   }
   for (let i = 0; i < products.length; i++) {
     console.log("inside loop", products);
-    await axios.put(`/api/checkout/${products[i].product.id}`, {
-      quantity: products[i].quantity,
+    await axios.put(`/api/checkout/`, {
+      quantity: products[i].quantity, productId: products[i].product.id
     });
   }
 };

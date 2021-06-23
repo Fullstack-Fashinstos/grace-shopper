@@ -20,9 +20,9 @@ router.post("/:userId", async (req, res, next) => {
   }
 })
 
-router.put("/:productId", async (req, res, next) => {
+router.put("/", async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.productId);
+    const product = await Product.findByPk(req.body.productId);
     product.stock = product.stock - req.body.quantity;
     await product.save();
     res.send(product)
