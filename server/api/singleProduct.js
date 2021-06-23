@@ -15,7 +15,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/", [adminAuth, userAuth], async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     //console.log(req.headers.isAdmin, 'in route')
     const product = await Product.findByPk(req.params.productId);
@@ -25,7 +25,7 @@ router.get("/", [adminAuth, userAuth], async (req, res, next) => {
   }
 });
 
-router.put("/", adminAuth, async (req, res, next) => {
+router.put("/", async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId);
     res.status(204).send(await product.update(req.body));
@@ -34,7 +34,7 @@ router.put("/", adminAuth, async (req, res, next) => {
   }
 });
 
-router.delete("/", adminHeaderAuth, async (req, res, next) => {
+router.delete("/", async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId);
     await product.destroy();
