@@ -16,7 +16,7 @@ class SingleProduct extends React.Component {
       description: "",
       price: "",
       stock: "",
-      quantity: 0,
+      quantity: 1,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -125,14 +125,14 @@ class SingleProduct extends React.Component {
     const { id, description, imageUrl, name, price, stock } =
       this.props.singleProduct;
     const { isAdmin } = this.props.auth;
+
     return (
       //this.props.singleProduct ?
-      <div key={id}>
-        Hello
+      <div id="singleProduct" key={id}>
         <h3>{name}</h3>
         <img src={imageUrl} width="300" height="300" />
         {description ? <p>{description}</p> : ""}
-        {price ? <p>{price / 100}</p> : ""}
+        {price ? <p>${price / 100}</p> : ""}
         {stock ? <p>{stock}</p> : ""}
         <select type="select" onChange={this.handleChange}>
           {this.buildOptions()}

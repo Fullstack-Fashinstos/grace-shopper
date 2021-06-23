@@ -2,6 +2,18 @@ body {
   font-family: sans-serif;
 }
 
+body div {
+  background-color: #f8f0e3;
+}
+
+#singleProduct {
+  text-align: center;
+}
+
+.cartItem {
+  padding-left: 2%;
+  padding-bottom: 2%;
+}
 a {
   text-decoration: none;
 }
@@ -13,9 +25,46 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+  color: black;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+#navDiv {
+  background-color: #a2cffe;
+}
+nav {
+  background-color: #a2cffe;
+  padding-top: 0.5em;
+  text-align: center;
+  margin: -0.5em;
+}
+
+.grid-container {
+  display: grid;
+}
+
+.grid-container {
+  display: inline-grid;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.flex-item {
+  margin: 0 5% 5% 5%;
+}
+
+button {
+  background-color: #a2cffe;
+  border: none;
+  border-radius: 1em !important;
+  padding: 0.5em;
+  margin: 0.5em !important;
 }

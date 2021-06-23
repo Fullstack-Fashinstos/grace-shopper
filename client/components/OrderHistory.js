@@ -13,16 +13,16 @@ export class OrderHistory extends Component {
     let items = this.props.history || [];
 
     return (
-      <div>
+      <div className="cartItem">
         {items.map((el, index) => {
           let arr = el.order_products.map((el) => {
             return (
               <div key={el.product.id}>
                 <img src={el.product.imageUrl} width="200px" />
                 <h5>{el.product.name}</h5>
-                <h5>{el.product.price / 100}</h5>
-                <h5>{el.product.description}</h5>
-                <h5>{el.quantity}</h5>
+                <h5>${el.product.price / 100}</h5>
+                <h5>Description : {el.product.description}</h5>
+                <h5>Quantity : {el.quantity}</h5>
               </div>
             );
           });

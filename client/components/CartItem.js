@@ -60,7 +60,7 @@ class CartItem extends Component {
     const quantArray = new Array(item.product.stock);
     quantArray.fill(1);
     return (
-      <div>
+      <div className="cartItem">
         <img src={item.product.imageUrl} width="200px" />
         <h5>{item.product.name}</h5>
         <h5>{item.product.price / 100}</h5>
