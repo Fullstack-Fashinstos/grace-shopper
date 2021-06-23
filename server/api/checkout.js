@@ -4,6 +4,8 @@ module.exports = router;
 
 router.post("/:userId", async (req, res, next) => {
   try {
+    // token from local storage
+    // req.headers.authorization
     const currentCart = await Order.findOne({
       where: {
         userId: req.params.userId,
