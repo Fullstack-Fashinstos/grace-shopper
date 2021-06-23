@@ -95,18 +95,22 @@ export class AllProducts extends React.Component {
         ) : (
           <div />
         )}
-        {products.length > 0
-          ? products.map((product) => {
-              return (
-                <div key={product.id}>
-                  <Link to={`/products/${product.id}`}>
-                    <div>{product.name}</div>
-                  </Link>
-                  <img src={product.imageUrl} width="300" height="300" />
-                </div>
-              );
-            })
-          : "No products in database."}
+        <div className="flex">
+          {products.length > 0
+            ? products.map((product, index) => {
+                console.log(index);
+                return (
+                  <div className="flex-item" key={product.id}>
+                    <Link to={`/products/${product.id}`}>
+                      <img src={product.imageUrl} width="250" height="250" />
+                      <br />
+                      <p>{product.name.toUpperCase()}</p>
+                    </Link>
+                  </div>
+                );
+              })
+            : "No products in database."}
+        </div>
       </div>
     );
   }

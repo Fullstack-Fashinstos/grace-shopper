@@ -1,12 +1,3 @@
-// <<<<<<< cart-routes
-// import React, { Component, Fragment } from "react";
-// import { connect } from "react-redux";
-// import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-// import { Login, Signup } from "./components/AuthForm";
-// import Home from "./components/Home";
-// import Cart from "./components/Cart";
-// import { me } from "./store";
-// =======
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -16,6 +7,7 @@ import Cart from "./components/Cart";
 import SingleProduct from "./components/SingleProduct";
 import AllProducts from "./components/AllProducts";
 import Checkout from "./components/Checkout";
+import OrderHistory from "./components/OrderHistory";
 import { me } from "./store";
 
 /**
@@ -39,9 +31,9 @@ class Routes extends Component {
               exact
               path="/products/:productId"
               component={SingleProduct}
-              
             />
             <Route exact path="/checkout" component={Checkout} />
+            <Route exact path="/orderHistory" component={OrderHistory} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -52,6 +44,7 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/checkout" component={Checkout} />
+
             <Route
               exact
               path="/products/:productId"
