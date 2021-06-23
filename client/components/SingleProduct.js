@@ -6,7 +6,6 @@ import {
   sendDeleteProduct,
 } from "../store/singleProduct";
 import { addToCartThunk } from "../store/cart";
-import Button from "react-bootstrap/Button";
 
 class SingleProduct extends React.Component {
   constructor() {
@@ -141,7 +140,6 @@ class SingleProduct extends React.Component {
         <button onClick={() => this.handleAdd(id, this.props.auth.id)}>
           Add To Cart
         </button>
-        <Button variant="primary">Some Button</Button>
         {isAdmin ? (
           <div>
             <h4>ADMIN</h4>
@@ -201,9 +199,6 @@ class SingleProduct extends React.Component {
         )}
       </div>
     );
-    //: (
-    //   <h2>Error Could Not Find Product</h2>
-    // );
   }
 }
 
