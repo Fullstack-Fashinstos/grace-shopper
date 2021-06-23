@@ -4,6 +4,7 @@ import { getCartThunk } from "../store/cart";
 import axios from "axios";
 import CartItem from "./CartItem";
 import CheckoutBox from "./CheckoutBox";
+import { getVisitorCart } from "../store/cart";
 
 class Cart extends Component {
   constructor() {
@@ -11,46 +12,25 @@ class Cart extends Component {
     this.state = {
       visitorCart: [],
     };
-    this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
-    this.visitorCartSetUp = this.visitorCartSetUp.bind(this);
     this.fetchTheData = this.fetchTheData.bind(this);
-  }
-
-  async visitorCartSetUp() {
-    let visitorCartAlpha = [];
-    const cart = JSON.parse(window.localStorage.getItem("cart")) || {};
-    const keys = Object.keys(cart);
-    for (let i = 0; i < keys.length; i++) {
-      const { data } = await axios.get(`/api/products/${keys[i]}`);
-      let itemObj = {};
-      itemObj.product = data;
-      itemObj.id = keys[i];
-      itemObj.quantity = cart[keys[i]];
-      visitorCartAlpha.push(itemObj);
-    }
-    this.setState({ visitorCart: visitorCartAlpha });
   }
 
   fetchTheData() {
     if (this.props.userId.id) {
-      console.log("in first conditional");
       this.props.getCartThunk(this.props.userId.id);
     } else {
-      this.visitorCartSetUp();
+      this.props.fetchGuestCart();
+      this.setState({ visitorCart: this.props.cart });
     }
   }
-  async componentDidMount() {
+  componentDidMount() {
     this.fetchTheData();
   }
 
-  async componentDidUpdate(prev) {
+  componentDidUpdate(prev) {
     if (prev.userId !== this.props.userId) {
       this.fetchTheData();
     }
-  }
-
-  rerenderParentCallback() {
-    this.visitorCartSetUp();
   }
 
   render() {
@@ -58,19 +38,18 @@ class Cart extends Component {
     if (this.props.userId.id) {
       items = this.props.cart.order_products || [];
     } else {
-      items = this.state.visitorCart;
+      if (Array.isArray(this.props.cart)) {
+        items = this.props.cart;
+      } else {
+        items = [];
+      }
     }
     return (
       <div>
-        <CheckoutBox rerenderParentCallback={this.rerenderParentCallback} visitorCart={this.state.visitorCart} />
+        <CheckoutBox visitorCart={this.state.visitorCart} />
+
         {items.map((item) => {
-          return (
-            <CartItem
-              rerenderParentCallback={this.rerenderParentCallback}
-              item={item}
-              key={item.id}
-            />
-          );
+          return <CartItem item={item} key={item.id} />;
         })}
       </div>
     );
@@ -86,6 +65,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
+    fetchGuestCart: () => dispatch(getVisitorCart()),
     getCartThunk: (id) => dispatch(getCartThunk(id)),
     getSingleItem: (id) => dispatch(fetchSingleProduct(id)),
   };

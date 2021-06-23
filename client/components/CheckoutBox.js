@@ -7,8 +7,8 @@ export class CheckoutBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: ''
-    }
+      message: "",
+    };
     this.handleCheckout = this.handleCheckout.bind(this);
     this.verifyStock = this.verifyStock.bind(this);
   }
@@ -27,7 +27,7 @@ export class CheckoutBox extends Component {
     return true;
   }
   handleCheckout(event) {
-    if(this.verifyStock()) {
+    if (this.verifyStock()) {
       if (this.props.userId) {
         this.props.checkoutCart(
           this.props.memberCart.order_products,
@@ -36,11 +36,13 @@ export class CheckoutBox extends Component {
       } else {
         this.props.checkoutCart(this.props.visitorCart, null);
         window.localStorage.setItem("cart", JSON.stringify({}));
-        this.props.rerenderParentCallback();
+        //this.props.rerenderParentCallback();
       }
     } else {
       event.preventDefault();
-      this.setState({warning: "Insufficient stock remaining. Cannot complete transaction."})
+      this.setState({
+        warning: "Insufficient stock remaining. Cannot complete transaction.",
+      });
     }
   }
   render() {

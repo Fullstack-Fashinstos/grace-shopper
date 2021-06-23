@@ -6,6 +6,7 @@ import {
   sendDeleteProduct,
 } from "../store/singleProduct";
 import { addToCartThunk } from "../store/cart";
+import Button from "react-bootstrap/Button";
 
 class SingleProduct extends React.Component {
   constructor() {
@@ -13,7 +14,7 @@ class SingleProduct extends React.Component {
     this.state = {
       name: "",
       imageUrl: "",
-      descrpition: "",
+      description: "",
       price: "",
       stock: "",
       quantity: 0,
@@ -111,7 +112,7 @@ class SingleProduct extends React.Component {
 
   buildOptions() {
     const options = [];
-    for (let i = 0; i <= this.state.stock; ++i) {
+    for (let i = 1; i <= this.state.stock; ++i) {
       options.push(
         <option key={i} value={i}>
           {i}
@@ -140,6 +141,7 @@ class SingleProduct extends React.Component {
         <button onClick={() => this.handleAdd(id, this.props.auth.id)}>
           Add To Cart
         </button>
+        <Button variant="primary">Some Button</Button>
         {isAdmin ? (
           <div>
             <h4>ADMIN</h4>
