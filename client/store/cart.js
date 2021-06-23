@@ -89,7 +89,7 @@ export const addToCartThunk = (productId, userId, quantity) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        `/api/cart/${productId}/${userId}/${quantity}`
+        `/api/cart/`, {productId, userId, quantity}
       );
       dispatch(getCartThunk(userId));
     } catch (error) {
@@ -137,12 +137,12 @@ export const transferCart = (userId) => async (dispatch) => {
 
 export const checkoutCartThunk = (products, userId) => async (dispatch) => {
   if (userId) {
-    const { data } = await axios.post(`/api/checkout/${userId}`);
+    const { data } = await axios.post(`/api/checkout`, {userId});
   }
   for (let i = 0; i < products.length; i++) {
     console.log("inside loop", products);
-    await axios.put(`/api/checkout/${products[i].product.id}`, {
-      quantity: products[i].quantity,
+    await axios.put(`/api/checkout`, {
+      quantity: products[i].quantity, productId: products[i].product.id
     });
   }
 };

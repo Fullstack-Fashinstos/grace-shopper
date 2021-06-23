@@ -25,28 +25,28 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/:productId/:userId/:quantity", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {
-        userId: req.params.userId,
+        userId: req.body.userId,
         fullfilled: false
       } })
     const existsInCart = await Order_Product.findOne({
       where: {
         orderId: order.id,
-        productId: req.params.productId,
+        productId: req.body.productId,
       },
     });
     let newCartItem;
     if (existsInCart) {
-      existsInCart.quantity = existsInCart.quantity + Number(req.params.quantity);
+      existsInCart.quantity = existsInCart.quantity + Number(req.body.quantity);
       existsInCart.save();
     } else {
       newCartItem = await Order_Product.create({
-        quantity: Number(req.params.quantity),
+        quantity: Number(req.body.quantity),
         orderId: order.id,
-        productId: req.params.productId,
+        productId: req.body.productId,
       });
     }
 
