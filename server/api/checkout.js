@@ -2,18 +2,16 @@ const router = require("express").Router();
 const { models: {Order, Product}} = require("../db");
 module.exports = router;
 
-router.post("/:userId", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    // token from local storage
-    // req.headers.authorization
     const currentCart = await Order.findOne({
       where: {
-        userId: req.params.userId,
+        userId: req.body.userId,
         fullfilled: false
       }
     })
     await currentCart.update({fullfilled: true})
-    const newCart = await Order.create({userId: Number(req.params.userId)})
+    const newCart = await Order.create({userId: Number(req.body.userId)})
     res.send(newCart);
   } catch (err) {
     next(err);
