@@ -33,14 +33,8 @@ class CartItem extends Component {
         this.props.auth.id
       );
     } else {
-      console.log(this.props.item.quantity, "GUEST");
       this.props.updateVisitorCart(this.props.item.id, this.state.quantity);
-      // let currentCart = JSON.parse(window.localStorage.getItem("cart")) || {};
-      // currentCart[this.props.item.id] = this.state.quantity;
-      // window.localStorage.setItem("cart", JSON.stringify(currentCart));
     }
-
-    // console.log(this.state.updatedQuantity);
     this.setState({ updatedQuantity: this.state.quantity });
   }
   handleDelete(event) {
@@ -49,10 +43,6 @@ class CartItem extends Component {
       this.props.deleteItem(this.props.item.id, this.props.auth.id);
     } else {
       this.props.deleteVisitorItem(this.props.item.id);
-      // let currentCart = JSON.parse(window.localStorage.getItem("cart")) || {};
-      // delete currentCart[this.props.item.id];
-      // window.localStorage.setItem("cart", JSON.stringify(currentCart));
-      // this.props.rerenderParentCallback();
     }
   }
   render() {

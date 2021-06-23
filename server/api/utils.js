@@ -1,13 +1,6 @@
 //const User = require('./users')
 const jwt = require("jsonwebtoken");
 
-// const generateToken = async (req, res, next) => {
-//     try {
-//         const token = await jwt.sign({product: re})
-//     } catch (error) {
-        
-//     }
-// }
 const userAuth = async (req, res, next) => {
     next()
 }
@@ -28,14 +21,14 @@ const adminAuth = async (req, res, next) => {
         console.log(req.headers, 'in adminAuth')
         if(req.body.isAdmin) {
             next()
-        } 
+        }
         if(req.body.user.isAdmin) {
             next()
         } else {
             const error = new Error('unauth')
             error.status = 403
             throw error
-           
+
         }
 
     } catch (error) {

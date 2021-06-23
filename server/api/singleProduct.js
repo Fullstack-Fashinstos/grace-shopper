@@ -17,7 +17,6 @@ router.get("/", async (req, res, next) => {
 
 router.get("/", [adminAuth, userAuth], async (req, res, next) => {
   try {
-    //console.log(req.headers.isAdmin, 'in route')
     const product = await Product.findByPk(req.params.productId);
     res.status(200).send(product);
   } catch (error) {

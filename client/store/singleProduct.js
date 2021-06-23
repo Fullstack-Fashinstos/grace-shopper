@@ -19,14 +19,6 @@ const editProduct = (product) => {
   };
 };
 
-// const deleteProduct = (product) => {
-//   return {
-//     type: DELETE_PRODUCT,
-//     product,
-//     user
-//   };
-// };
-
 export const fetchSingleProduct = (id, auth) => {
   return async (dispatch) => {
     const { data } = await axios.get(`/api/products/${id}`, {
