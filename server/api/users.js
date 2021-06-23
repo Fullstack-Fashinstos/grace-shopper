@@ -1,10 +1,11 @@
 const router = require('express').Router()
 const { models: { User }} = require('../db')
-const {adminAuth} = require('./utils')
+const isAdmin = require('./utils')
 module.exports = router
 
-router.get('/', adminAuth, async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
+    console.log('inside route')
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
       // users' passwords are encrypted, it won't help if we just
