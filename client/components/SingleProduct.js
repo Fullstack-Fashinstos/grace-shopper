@@ -13,7 +13,7 @@ class SingleProduct extends React.Component {
     this.state = {
       name: "",
       imageUrl: "",
-      descrpition: "",
+      description: "",
       price: "",
       stock: "",
       quantity: 0,
@@ -111,7 +111,7 @@ class SingleProduct extends React.Component {
 
   buildOptions() {
     const options = [];
-    for (let i = 0; i <= this.state.stock; ++i) {
+    for (let i = 1; i <= this.state.stock; ++i) {
       options.push(
         <option key={i} value={i}>
           {i}
@@ -199,9 +199,6 @@ class SingleProduct extends React.Component {
         )}
       </div>
     );
-    //: (
-    //   <h2>Error Could Not Find Product</h2>
-    // );
   }
 }
 

@@ -28,15 +28,15 @@ const editProduct = (product) => {
 // };
 
 export const fetchSingleProduct = (id, auth) => {
-    return async (dispatch) => {
-        const { data } = await axios.get(`/api/products/${id}`, { 
-            headers: {
-                admin: auth
-            }
-        })
-        dispatch(setSingleProduct(data))
-    }
-}
+  return async (dispatch) => {
+    const { data } = await axios.get(`/api/products/${id}`, {
+      headers: {
+        admin: auth,
+      },
+    });
+    dispatch(setSingleProduct(data));
+  };
+};
 
 export const sendEditProduct = (product, user) => {
   return async (dispatch) => {
@@ -46,15 +46,15 @@ export const sendEditProduct = (product, user) => {
 };
 
 export const sendDeleteProduct = (product, user) => {
-    console.log(user)
+  console.log(user);
   return async (dispatch) => {
     const { data } = await axios.delete(`/api/products/${product.id}`, {
-        headers: {
-            admin: user.isAdmin
-        }
+      headers: {
+        admin: user.isAdmin,
+      },
     });
     dispatch(fetchProducts());
-    
+
     //dispatch(deleteProduct(data))
   };
 };

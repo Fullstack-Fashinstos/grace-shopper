@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateCartThunk, deleteItemThunk } from "../store/cart";
+import {
+  updateCartThunk,
+  deleteItemThunk,
+  updateVisitorCart,
+  deleteVisitorItem,
+} from "../store/cart";
 
 class CartItem extends Component {
   constructor(props) {
@@ -28,10 +33,14 @@ class CartItem extends Component {
         this.props.auth.id
       );
     } else {
-      let currentCart = JSON.parse(window.localStorage.getItem("cart")) || {};
-      currentCart[this.props.item.id] = this.state.quantity;
-      window.localStorage.setItem("cart", JSON.stringify(currentCart));
+      console.log(this.props.item.quantity, "GUEST");
+      this.props.updateVisitorCart(this.props.item.id, this.state.quantity);
+      // let currentCart = JSON.parse(window.localStorage.getItem("cart")) || {};
+      // currentCart[this.props.item.id] = this.state.quantity;
+      // window.localStorage.setItem("cart", JSON.stringify(currentCart));
     }
+
+    // console.log(this.state.updatedQuantity);
     this.setState({ updatedQuantity: this.state.quantity });
   }
   handleDelete(event) {
@@ -39,10 +48,11 @@ class CartItem extends Component {
     if (this.props.auth.id) {
       this.props.deleteItem(this.props.item.id, this.props.auth.id);
     } else {
-      let currentCart = JSON.parse(window.localStorage.getItem("cart")) || {};
-      delete currentCart[this.props.item.id];
-      window.localStorage.setItem("cart", JSON.stringify(currentCart));
-      this.props.rerenderParentCallback();
+      this.props.deleteVisitorItem(this.props.item.id);
+      // let currentCart = JSON.parse(window.localStorage.getItem("cart")) || {};
+      // delete currentCart[this.props.item.id];
+      // window.localStorage.setItem("cart", JSON.stringify(currentCart));
+      // this.props.rerenderParentCallback();
     }
   }
   render() {
@@ -83,9 +93,12 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
+    updateVisitorCart: (itemId, quantity) =>
+      dispatch(updateVisitorCart(itemId, quantity)),
     updateQuantity: (id, quantity, userId) =>
       dispatch(updateCartThunk(id, quantity, userId)),
     deleteItem: (id, userId) => dispatch(deleteItemThunk(id, userId)),
+    deleteVisitorItem: (itemId) => dispatch(deleteVisitorItem(itemId)),
   };
 };
 
