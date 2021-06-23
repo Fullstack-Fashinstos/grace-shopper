@@ -127,7 +127,7 @@ export const transferCart = (userId) => async (dispatch) => {
     const keys = Object.keys(localCart);
     for (let i = 0; i < keys.length; i++) {
       const { data } = await axios.post(
-        `/api/cart/${keys[i]}/${userId}/${localCart[keys[i]]}`
+        `/api/cart/`, {productId: keys[i], userId, quantity: localCart[keys[i]]}
       );
     }
     window.localStorage.removeItem("cart");
