@@ -4,9 +4,16 @@ const isAdmin = async (req, res, next) => {
 	try {
 		const token = req.headers.authorization;
 
+		if (!token) {
+			const error = new Error('no token found!');
+			error.status = 403;
+			return next(error);
+		}
+
 		const user = await User.findByToken(token);
 
 		if (user.isAdmin) {
+			console.log('admin user authenticated');
 			return next();
 		}
 
