@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   models: { Order, Order_Product, Product, User },
 } = require("../db");
+const { isUser } = require("./utils");
 module.exports = router;
 
 router.get("/:id", async (req, res, next) => {
@@ -25,13 +26,14 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", isUser, async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {
         userId: req.body.userId,
-        fullfilled: false
-      } })
+        fullfilled: false,
+      },
+    });
     const existsInCart = await Order_Product.findOne({
       where: {
         orderId: order.id,
@@ -56,7 +58,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", isUser, async (req, res, next) => {
   try {
     const product = await Order_Product.findByPk(req.params.id);
     await product.update({ quantity: req.body.quantity });
@@ -66,7 +68,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isUser, async (req, res, next) => {
   try {
     const product = await Order_Product.findByPk(req.params.id);
     await product.destroy();
@@ -75,4 +77,3 @@ router.delete("/:id", async (req, res, next) => {
     next(err);
   }
 });
-

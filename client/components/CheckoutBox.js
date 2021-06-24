@@ -36,7 +36,6 @@ export class CheckoutBox extends Component {
       } else {
         this.props.checkoutCart(this.props.visitorCart, null);
         window.localStorage.setItem("cart", JSON.stringify({}));
-        //this.props.rerenderParentCallback();
       }
     } else {
       event.preventDefault();
