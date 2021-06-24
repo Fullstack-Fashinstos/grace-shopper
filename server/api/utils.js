@@ -1,39 +1,41 @@
-//const User = require('./users')
-const jwt = require("jsonwebtoken");
+const User = require("../db/models/user");
 
-const userAuth = async (req, res, next) => {
-    next()
-}
+const isUser = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const currentUser = await User.findByToken(token);
+    req.user = currentUser;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 
-const adminHeaderAuth = async (req, res, next) => {
-    if(req.headers.admin === 'true') {
-        next()
-    } else {
-        const error = new Error('unauth')
-        error.status = 403
-        throw error
+const isAdmin = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      const error = new Error("no token found!");
+      error.status = 403;
+      return next(error);
     }
-}
 
+    const user = await User.findByToken(token);
 
-const adminAuth = async (req, res, next) => {
-    try {
-        console.log(req.headers, 'in adminAuth')
-        if(req.body.isAdmin) {
-            next()
-        }
-        if(req.body.user.isAdmin) {
-            next()
-        } else {
-            const error = new Error('unauth')
-            error.status = 403
-            throw error
-
-        }
-
-    } catch (error) {
-        next(error)
+    if (user.isAdmin) {
+      console.log("admin user authenticated");
+      return next();
     }
-}
 
-module.exports = {adminAuth, userAuth, adminHeaderAuth}
+    const error = new Error(
+      "only admins or authorized users can access this route"
+    );
+    error.status = 401;
+    next(error);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { isUser, isAdmin };

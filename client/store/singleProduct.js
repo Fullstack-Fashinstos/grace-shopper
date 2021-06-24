@@ -32,22 +32,27 @@ export const fetchSingleProduct = (id, auth) => {
 
 export const sendEditProduct = (product, user) => {
   return async (dispatch) => {
-    await axios.put(`/api/products/${product.id}`, { product, user });
+    await axios.put(
+      `/api/products/${product.id}`,
+      { product, user },
+      {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      }
+    );
     dispatch(editProduct(product));
   };
 };
 
 export const sendDeleteProduct = (product, user) => {
-  console.log(user);
   return async (dispatch) => {
     const { data } = await axios.delete(`/api/products/${product.id}`, {
       headers: {
-        admin: user.isAdmin,
+        authorization: window.localStorage.getItem("token"),
       },
     });
     dispatch(fetchProducts());
-
-    //dispatch(deleteProduct(data))
   };
 };
 

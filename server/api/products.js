@@ -2,6 +2,8 @@ const router = require("express").Router();
 const {
   models: { Product },
 } = require("../db");
+const { isAdmin } = require("./utils");
+
 module.exports = router;
 
 router.get("/", async (req, res, next) => {
@@ -15,7 +17,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", isAdmin, async (req, res, next) => {
   try {
     res.status(201).send(await Product.create(req.body));
   } catch (error) {

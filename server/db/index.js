@@ -11,7 +11,7 @@ const Order_Product = require("./models/order_products.js");
 Order.hasMany(Order_Product);
 Order_Product.belongsTo(Order);
 
-Product.hasMany(Order_Product);
+Product.hasMany(Order_Product, { onDelete: "cascade" });
 Order_Product.belongsTo(Product);
 
 User.hasMany(Order);

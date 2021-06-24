@@ -21,8 +21,12 @@ export const fetchProducts = () => {
 
 export const addProduct = (product, history) => {
   return async (dispatch) => {
-    const { data: created } = await axios.post("/api/products", product);
-    //dispatch(setProducts(created));
+    const { data: created } = await axios.post("/api/products", product, {
+      headers: {
+        authorization: window.localStorage.getItem("token"),
+      },
+    });
+
     dispatch(fetchProducts());
   };
 };
