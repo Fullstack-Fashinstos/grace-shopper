@@ -19,13 +19,6 @@ const getGuest = (cart) => {
   };
 };
 
-// const updateGuest = (cart) => {
-//   return {
-//     type: UPDATE_GUEST,
-//     cart,
-//   };
-// };
-
 export const getVisitorCart = () => {
   return async (dispatch) => {
     try {
@@ -89,7 +82,13 @@ export const addToCartThunk = (productId, userId, quantity) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        `/api/cart/`, {productId, userId, quantity}
+        `/api/cart/`,
+        { productId, userId, quantity },
+        {
+          headers: {
+            authorization: window.localStorage.getItem("token"),
+          },
+        }
       );
       dispatch(getCartThunk(userId));
     } catch (error) {
@@ -101,7 +100,15 @@ export const addToCartThunk = (productId, userId, quantity) => {
 export const updateCartThunk = (id, quantity, userId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/cart/${id}`, { quantity });
+      const { data } = await axios.put(
+        `/api/cart/${id}`,
+        { quantity },
+        {
+          headers: {
+            authorization: window.localStorage.getItem("token"),
+          },
+        }
+      );
       dispatch(getCartThunk(userId));
     } catch (error) {
       console.log(error);
@@ -112,7 +119,11 @@ export const updateCartThunk = (id, quantity, userId) => {
 export const deleteItemThunk = (id, userId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.delete(`/api/cart/${id}`);
+      const { data } = await axios.delete(`/api/cart/${id}`, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      });
       dispatch(getCartThunk(userId));
     } catch (error) {
       console.log(error);
@@ -127,7 +138,17 @@ export const transferCart = (userId) => async (dispatch) => {
     const keys = Object.keys(localCart);
     for (let i = 0; i < keys.length; i++) {
       const { data } = await axios.post(
-        `/api/cart/`, {productId: keys[i], userId, quantity: localCart[keys[i]]}
+        `/api/cart/`,
+        {
+          productId: keys[i],
+          userId,
+          quantity: localCart[keys[i]],
+        },
+        {
+          headers: {
+            authorization: window.localStorage.getItem("token"),
+          },
+        }
       );
     }
     window.localStorage.removeItem("cart");
@@ -137,12 +158,12 @@ export const transferCart = (userId) => async (dispatch) => {
 
 export const checkoutCartThunk = (products, userId) => async (dispatch) => {
   if (userId) {
-    const { data } = await axios.post(`/api/checkout`, {userId});
+    const { data } = await axios.post(`/api/checkout`, { userId });
   }
   for (let i = 0; i < products.length; i++) {
-    console.log("inside loop", products);
     await axios.put(`/api/checkout`, {
-      quantity: products[i].quantity, productId: products[i].product.id
+      quantity: products[i].quantity,
+      productId: products[i].product.id,
     });
   }
 };

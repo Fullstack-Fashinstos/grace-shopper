@@ -41,7 +41,7 @@ class SingleProduct extends React.Component {
         description: description,
         imageUrl: imageUrl,
         name: name,
-        price: price / 100,
+        price: price,
         stock: stock,
       });
     }
@@ -127,7 +127,6 @@ class SingleProduct extends React.Component {
     const { isAdmin } = this.props.auth;
 
     return (
-      //this.props.singleProduct ?
       <div id="singleProduct" key={id}>
         <h3>{name}</h3>
         <img src={imageUrl} width="300" height="300" />

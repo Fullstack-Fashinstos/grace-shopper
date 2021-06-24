@@ -27,18 +27,9 @@ export class AllProducts extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.createProduct({ ...this.state });
-    // this.setState({
-    //     id: id,
-    //     name: name,
-    //     description: description,
-    //     imageUrl: imageUrl,
-    //     price: price,
-    //     stock: stock,
-    //   });
   }
 
   componentDidMount() {
-    //thunk goes here
     this.props.fetchProducts();
   }
 
@@ -98,7 +89,6 @@ export class AllProducts extends React.Component {
         <div className="flex">
           {products.length > 0
             ? products.map((product, index) => {
-                console.log(index);
                 return (
                   <div className="flex-item" key={product.id}>
                     <Link to={`/products/${product.id}`}>
