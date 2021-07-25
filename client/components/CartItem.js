@@ -35,7 +35,6 @@ class CartItem extends Component {
     } else {
       this.props.updateVisitorCart(this.props.item.id, this.state.quantity);
     }
-
     this.setState({ updatedQuantity: this.state.quantity });
   }
   handleDelete(event) {
