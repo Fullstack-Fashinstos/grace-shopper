@@ -12,6 +12,7 @@ SoleFactor is a full-stack e-commerce website that sells shoes. Both logged in a
 
 - React
 - Redux
+- NodeJS
 - Express
 - Sequelize
 - PostgreSQL
