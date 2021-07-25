@@ -2,7 +2,7 @@
 
 ## About SoleFactor
 
-SoleFactor is a full-stack e-commerce website that sells shoes. Both logged in and guest are able to browse through products, login, sign-up, add items to their cart, and checkout. Furthermore, Admins can perform full CRUD functionalities for products on the site.
+SoleFactor is a full-stack e-commerce website that sells shoes. Both logged in and guest users are able to browse through products, login, sign-up, add items to their cart, and checkout. Furthermore, Admins can perform full CRUD functionalities for products on the site.
 
 ## Link to site
 
