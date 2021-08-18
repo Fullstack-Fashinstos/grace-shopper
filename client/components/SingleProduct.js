@@ -41,7 +41,7 @@ class SingleProduct extends React.Component {
         description: description,
         imageUrl: imageUrl,
         name: name,
-        price: price,
+        price: price / 100,
         stock: stock,
       });
     }
@@ -49,7 +49,16 @@ class SingleProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.sendEditProduct(this.state, this.props.auth);
+    const currentState = this.state;
+    let splitPrice = this.state.price.split('.');
+    let currentPrice = 0;
+    if (splitPrice.length === 1) {
+      currentPrice = Number(splitPrice[0]) * 100;
+    } else {
+      currentPrice = Number(splitPrice[0]) * 100 + Number(splitPrice[1]);
+    }
+    currentState.price = currentPrice;
+    this.props.sendEditProduct(currentState, this.props.auth);
   }
 
   handleChange(event) {
