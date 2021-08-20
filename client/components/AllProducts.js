@@ -1,7 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import { fetchProducts, addProduct } from "../store/products";
+import ProductCard from "./ProductCard";
 
 export class AllProducts extends React.Component {
   constructor() {
@@ -40,49 +43,54 @@ export class AllProducts extends React.Component {
     return (
       <div className="productList">
         {isAdmin ? (
-          <form onSubmit={this.handleSubmit}>
-            <input
-              className="product-form"
-              type="text"
-              name="name"
-              value={this.state.name}
-              placeholder="Name"
-              onChange={this.handleChange}
-            />
-            <input
-              className="product-form"
-              type="text"
-              name="description"
-              value={this.state.description}
-              placeholder="Description"
-              onChange={this.handleChange}
-            />
-            <input
-              className="product-form"
-              type="text"
-              name="price"
-              value={this.state.price}
-              placeholder="Price"
-              onChange={this.handleChange}
-            />
-            <input
-              className="product-form"
-              type="text"
-              name="imageUrl"
-              value={this.state.imageUrl}
-              placeholder="Image Url"
-              onChange={this.handleChange}
-            />
-            <input
-              className="product-form"
-              type="text"
-              name="stock"
-              value={this.state.stock}
-              placeholder="Stock"
-              onChange={this.handleChange}
-            />
-            <button type="submit">Submit</button>
-          </form>
+          <div className="flex">
+            <form onSubmit={this.handleSubmit} className="centered-form">
+              <h5>Add a New Product</h5>
+              <TextField
+                className="product-form"
+                type="text"
+                name="name"
+                value={this.state.name}
+                label="Name"
+                onChange={this.handleChange}
+              />
+              <TextField
+                className="product-form"
+                type="text"
+                name="description"
+                value={this.state.description}
+                label="Description"
+                onChange={this.handleChange}
+              />
+              <TextField
+                className="product-form"
+                type="text"
+                name="price"
+                value={this.state.price}
+                label="Price"
+                onChange={this.handleChange}
+              />
+              <TextField
+                className="product-form"
+                type="text"
+                name="imageUrl"
+                value={this.state.imageUrl}
+                label="Image Url"
+                onChange={this.handleChange}
+              />
+              <TextField
+                className="product-form"
+                type="text"
+                name="stock"
+                value={this.state.stock}
+                label="Stock"
+                onChange={this.handleChange}
+              />
+              <div>
+                <Button type="submit" variant="contained" color="primary">Add Item</Button>
+              </div>
+            </form>
+          </div>
         ) : (
           <div />
         )}
@@ -90,13 +98,7 @@ export class AllProducts extends React.Component {
           {products.length > 0
             ? products.map((product, index) => {
                 return (
-                  <div className="flex-item" key={product.id}>
-                    <Link to={`/products/${product.id}`}>
-                      <img src={product.imageUrl} width="250" height="250" />
-                      <br />
-                      <p>{product.name.toUpperCase()}</p>
-                    </Link>
-                  </div>
+                  <ProductCard product={product} key={product.id} />
                 );
               })
             : "No products in database."}

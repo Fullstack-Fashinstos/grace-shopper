@@ -5,6 +5,13 @@ import {
   sendEditProduct,
   sendDeleteProduct,
 } from "../store/singleProduct";
+import Button from "@material-ui/core/Button";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem"
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import TextField from "@material-ui/core/TextField";
 import { addToCartThunk } from "../store/cart";
 
 class SingleProduct extends React.Component {
@@ -41,7 +48,7 @@ class SingleProduct extends React.Component {
         description: description,
         imageUrl: imageUrl,
         name: name,
-        price: price,
+        price: price / 100,
         stock: stock,
       });
     }
@@ -49,14 +56,23 @@ class SingleProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.sendEditProduct(this.state, this.props.auth);
+    const currentState = this.state;
+    let splitPrice = this.state.price.split('.');
+    let currentPrice = 0;
+    if (splitPrice.length === 1) {
+      currentPrice = Number(splitPrice[0]) * 100;
+    } else {
+      currentPrice = Number(splitPrice[0]) * 100 + Number(splitPrice[1]);
+    }
+    currentState.price = currentPrice;
+    this.props.sendEditProduct(currentState, this.props.auth);
   }
 
   handleChange(event) {
     const name = event.target.name;
     const val = event.target.value;
 
-    if (event.target.type === "select-one") {
+    if (name === "select") {
       this.setState({
         quantity: Number(val),
       });
@@ -113,10 +129,13 @@ class SingleProduct extends React.Component {
     const options = [];
     for (let i = 1; i <= this.state.stock; ++i) {
       options.push(
-        <option key={i} value={i}>
+        <MenuItem key={i} value={i}>
           {i}
-        </option>
+        </MenuItem>
       );
+    }
+    if (!options.length) {
+      options.push(<MenuItem key={1} value={1}>1</MenuItem>)
     }
     return options;
   }
@@ -124,78 +143,96 @@ class SingleProduct extends React.Component {
   render() {
     const { id, description, imageUrl, name, price, stock } =
       this.props.singleProduct;
+    const priceStr = String(price).slice(0, String(price).length - 2) + '.' + String(price).slice(String(price).length - 2);
     const { isAdmin } = this.props.auth;
-
     return (
       <div id="singleProduct" key={id}>
-        <h3>{name}</h3>
-        <img src={imageUrl} width="300" height="300" />
-        {description ? <p>{description}</p> : ""}
-        {price ? <p>${price / 100}</p> : ""}
-        {stock ? <p>{stock}</p> : ""}
-        <select type="select" onChange={this.handleChange}>
-          {this.buildOptions()}
-        </select>
-        <button onClick={() => this.handleAdd(id, this.props.auth.id)}>
-          Add To Cart
-        </button>
-        {isAdmin ? (
-          <div>
-            <h4>ADMIN</h4>
-            <form id="new-message-form" onSubmit={this.handleSubmit}>
-              <div className="input-group input-group-lg">
-                <input
-                  onChange={this.handleChange}
-                  className="form-control"
-                  type="text"
-                  name="name"
-                  value={this.state.name}
-                  placeholder={name}
-                />
-                <input
-                  onChange={this.handleChange}
-                  className="form-control"
-                  type="text"
-                  name="description"
-                  value={this.state.description}
-                  placeholder={description}
-                />
-                <input
-                  onChange={this.handleChange}
-                  className="form-control"
-                  type="text"
-                  name="price"
-                  value={this.state.price}
-                  placeholder={price}
-                />
-                <input
-                  onChange={this.handleChange}
-                  className="form-control"
-                  type="text"
-                  name="imageUrl"
-                  value={this.state.imageUrl}
-                  placeholder={imageUrl}
-                />
-                <input
-                  onChange={this.handleChange}
-                  className="form-control"
-                  type="text"
-                  name="stock"
-                  value={this.state.stock}
-                  placeholder={stock}
-                />
-                <span className="input-group-btn">
-                  <button className="btn btn-default" type="submit">
-                    Submit
-                  </button>
-                </span>
-              </div>
-            </form>
-            <button onClick={this.handleDelete}>Delete</button>
-          </div>
-        ) : (
-          <div />
-        )}
+        <img src={imageUrl} className="product-image" />
+        <div className="product-details">
+          <h3>{name}</h3>
+          {description ? <p>{description}</p> : ""}
+          {price ? <p>${priceStr}</p> : ""}
+          {stock ? <p>{`In Stock`}</p> : "Out of Stock"}
+          <FormControl variant="outlined" className="dropdown">
+            <InputLabel id="quantity-label">Quantity</InputLabel>
+            <Select
+              name="select"
+              onChange={this.handleChange}
+              labelId="quantity-label"
+              label="Quantity"
+              value={this.state.quantity}
+            >
+              {this.buildOptions()}
+            </Select>
+          </FormControl>
+          <Button
+            onClick={() => this.handleAdd(id, this.props.auth.id)}
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<AddShoppingCartIcon />}
+          >
+            Add To Cart
+          </Button>
+          {isAdmin ? (
+            <div>
+              <hr></hr>
+              <form id="new-message-form" onSubmit={this.handleSubmit} className="centered-form">
+                <h5>Update This Product</h5>
+                <div>
+                  <TextField
+                    onChange={this.handleChange}
+                    type="text"
+                    name="name"
+                    label="Name"
+                    value={this.state.name}
+                    placeholder={name}
+                  />
+                  <TextField
+                    onChange={this.handleChange}
+                    type="text"
+                    name="description"
+                    label="Description"
+                    value={this.state.description}
+                    placeholder={description}
+                  />
+                  <TextField
+                    onChange={this.handleChange}
+                    type="text"
+                    name="price"
+                    label="Price ($)"
+                    value={this.state.price}
+                    placeholder={String(price)}
+                  />
+                  <TextField
+                    onChange={this.handleChange}
+                    type="text"
+                    name="imageUrl"
+                    label="Image URL"
+                    value={this.state.imageUrl}
+                    placeholder={imageUrl}
+                  />
+                  <TextField
+                    onChange={this.handleChange}
+                    type="text"
+                    name="stock"
+                    label="Current Stock"
+                    value={this.state.stock}
+                    placeholder={String(stock)}
+                  />
+                  <span className="input-group-btn">
+                    <Button className="btn btn-default" type="submit" variant="contained" color="primary">
+                      Update
+                    </Button>
+                    <Button onClick={this.handleDelete} variant="contained" color="secondary">Delete</Button>
+                  </span>
+                </div>
+              </form>
+            </div>
+          ) : (
+            <div />
+          )}
+        </div>
       </div>
     );
   }

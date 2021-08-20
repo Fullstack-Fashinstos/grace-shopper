@@ -17,20 +17,23 @@ export class OrderHistory extends Component {
         {items.map((el, index) => {
           let arr = el.order_products.map((el) => {
             return (
-              <div key={el.product.id}>
-                <img src={el.product.imageUrl} width="200px" />
-                <h5>{el.product.name}</h5>
-                <h5>${el.product.price / 100}</h5>
-                <h5>Description : {el.product.description}</h5>
-                <h5>Quantity : {el.quantity}</h5>
+              <div key={el.product.id} className="order-card">
+                <img src={el.product.imageUrl} className="order-img"/>
+                <div className="order-details">
+                  <h5>{el.product.name}</h5>
+                  <h5>Description : {el.product.description}</h5>
+                  <h5>Quantity : {el.quantity}</h5>
+                  <h5>Subtotal: ${el.quantity * el.product.price / 100}</h5>
+                </div>
               </div>
             );
           });
 
           return (
             <div key={el.id}>
-              <h4>{Date(el.updatedAt).slice(0, 16)}</h4>
-              Order {index + 1} {arr}
+              <h4>Order {index + 1} - {Date(el.updatedAt).slice(4, 16)}</h4>
+              <h5>Total: ${el.order_products.reduce((accumulator, currentProduct) => accumulator + currentProduct.quantity * currentProduct.product.price, 0) / 100}</h5>
+              <h5>{arr}</h5>
               <hr />
             </div>
           );
