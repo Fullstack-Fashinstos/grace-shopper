@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import Routes from './Routes';
 
 const App = () => (
-	<div>
+	<div className="main">
 		<Navbar />
 		<Routes />
 	</div>
