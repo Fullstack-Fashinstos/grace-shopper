@@ -31,8 +31,9 @@ export class OrderHistory extends Component {
 
           return (
             <div key={el.id}>
-              <h4>{Date(el.updatedAt).slice(0, 16)}</h4>
-              <h5>Order {index + 1} {arr}</h5>
+              <h4>Order {index + 1} - {Date(el.updatedAt).slice(4, 16)}</h4>
+              <h5>Total: ${el.order_products.reduce((accumulator, currentProduct) => accumulator + currentProduct.quantity * currentProduct.product.price, 0) / 100}</h5>
+              <h5>{arr}</h5>
               <hr />
             </div>
           );
