@@ -11,6 +11,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem"
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
+import TextField from "@material-ui/core/TextField";
 import { addToCartThunk } from "../store/cart";
 
 class SingleProduct extends React.Component {
@@ -173,64 +174,65 @@ class SingleProduct extends React.Component {
           >
             Add To Cart
           </Button>
+          {isAdmin ? (
+            <div>
+              <hr></hr>
+              <form id="new-message-form" onSubmit={this.handleSubmit} className="centered-form">
+                <h5>Update This Product</h5>
+                <div>
+                  <TextField
+                    onChange={this.handleChange}
+                    type="text"
+                    name="name"
+                    label="Name"
+                    value={this.state.name}
+                    placeholder={name}
+                  />
+                  <TextField
+                    onChange={this.handleChange}
+                    type="text"
+                    name="description"
+                    label="Description"
+                    value={this.state.description}
+                    placeholder={description}
+                  />
+                  <TextField
+                    onChange={this.handleChange}
+                    type="text"
+                    name="price"
+                    label="Price ($)"
+                    value={this.state.price}
+                    placeholder={String(price)}
+                  />
+                  <TextField
+                    onChange={this.handleChange}
+                    type="text"
+                    name="imageUrl"
+                    label="Image URL"
+                    value={this.state.imageUrl}
+                    placeholder={imageUrl}
+                  />
+                  <TextField
+                    onChange={this.handleChange}
+                    type="text"
+                    name="stock"
+                    label="Current Stock"
+                    value={this.state.stock}
+                    placeholder={String(stock)}
+                  />
+                  <span className="input-group-btn">
+                    <Button className="btn btn-default" type="submit" variant="contained" color="primary">
+                      Update
+                    </Button>
+                    <Button onClick={this.handleDelete} variant="contained" color="secondary">Delete</Button>
+                  </span>
+                </div>
+              </form>
+            </div>
+          ) : (
+            <div />
+          )}
         </div>
-        {isAdmin ? (
-          <div>
-            <h4>ADMIN</h4>
-            <form id="new-message-form" onSubmit={this.handleSubmit}>
-              <div className="input-group input-group-lg">
-                <input
-                  onChange={this.handleChange}
-                  className="form-control"
-                  type="text"
-                  name="name"
-                  value={this.state.name}
-                  placeholder={name}
-                />
-                <input
-                  onChange={this.handleChange}
-                  className="form-control"
-                  type="text"
-                  name="description"
-                  value={this.state.description}
-                  placeholder={description}
-                />
-                <input
-                  onChange={this.handleChange}
-                  className="form-control"
-                  type="text"
-                  name="price"
-                  value={this.state.price}
-                  placeholder={price}
-                />
-                <input
-                  onChange={this.handleChange}
-                  className="form-control"
-                  type="text"
-                  name="imageUrl"
-                  value={this.state.imageUrl}
-                  placeholder={imageUrl}
-                />
-                <input
-                  onChange={this.handleChange}
-                  className="form-control"
-                  type="text"
-                  name="stock"
-                  value={this.state.stock}
-                  placeholder={stock}
-                />
-                <span className="input-group-btn">
-                  <button className="btn btn-default" type="submit">
-                    Submit
-                  </button>
-                </span>
-              </div>
-            </form>
-            <button onClick={this.handleDelete}>Delete</button>
-          </div>
-        ) : (
-          <div />
-        )}
       </div>
     );
   }
