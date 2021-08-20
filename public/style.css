@@ -2,14 +2,21 @@ body {
   font-family: sans-serif;
 }
 
-body div {
+.main {
   background-color: #f8f0e3;
+  min-height: 100vh;
 }
 
 #singleProduct {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.productList {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
 }
 
 .product-image {
@@ -118,3 +125,12 @@ button {
   height: 200px;
   object-fit: cover;
 }
+
+.centered-form {
+  background-color: #e0e0e0;
+  max-width: 630px;
+  padding: 10px 5px 10px 15px;
+  box-shadow: 1px 1px 1px gray;
+  border-radius: 5px;
+}
+
