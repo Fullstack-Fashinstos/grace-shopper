@@ -49,9 +49,10 @@ class Cart extends Component {
         {items.length !== 0 && (
           <CheckoutBox visitorCart={this.state.visitorCart} />
         )}
-
         {items.length === 0 ? (
-          <p>Your cart is empty!</p>
+          <div class="centerChild">
+            <h1>Your cart is empty!</h1>
+          </div>
         ) : (
           items.map((item) => {
             return <CartItem item={item} key={item.id} />;

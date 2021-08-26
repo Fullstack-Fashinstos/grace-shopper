@@ -71,7 +71,7 @@ class CartItem extends Component {
     const quantArray = new Array(item.product.stock);
     quantArray.fill(1);
     return (
-      <div id="checkoutItemContainer">
+      <div class="centerChild">
         <Card style={{ ...styles.container }}>
           <img src={item.product.imageUrl} width="200px" />
           <CardContent>

@@ -93,7 +93,7 @@ nav {
   margin: 1em;
 }
 
-#checkoutItemContainer {
+.centerChild {
   display: flex;
   justify-content: center;
 }
@@ -133,4 +133,12 @@ nav {
   padding: 10px 5px 10px 15px;
   box-shadow: 1px 1px 1px gray;
   border-radius: 5px;
+}
+
+.loginForm {
+  background-color: #fff;
+  padding: 10px 5px 10px 15px;
+  box-shadow: 1px 1px 1px gray;
+  border-radius: 5px;
+  width: 400px;
 }
