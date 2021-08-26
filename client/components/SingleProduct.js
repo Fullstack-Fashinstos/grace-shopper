@@ -8,7 +8,7 @@ import {
 import Button from "@material-ui/core/Button";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem"
+import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
@@ -57,7 +57,7 @@ class SingleProduct extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const currentState = this.state;
-    let splitPrice = this.state.price.split('.');
+    let splitPrice = this.state.price.split(".");
     let currentPrice = 0;
     if (splitPrice.length === 1) {
       currentPrice = Number(splitPrice[0]) * 100;
@@ -135,7 +135,11 @@ class SingleProduct extends React.Component {
       );
     }
     if (!options.length) {
-      options.push(<MenuItem key={1} value={1}>1</MenuItem>)
+      options.push(
+        <MenuItem key={1} value={1}>
+          1
+        </MenuItem>
+      );
     }
     return options;
   }
@@ -143,7 +147,10 @@ class SingleProduct extends React.Component {
   render() {
     const { id, description, imageUrl, name, price, stock } =
       this.props.singleProduct;
-    const priceStr = String(price).slice(0, String(price).length - 2) + '.' + String(price).slice(String(price).length - 2);
+    const priceStr =
+      String(price).slice(0, String(price).length - 2) +
+      "." +
+      String(price).slice(String(price).length - 2);
     const { isAdmin } = this.props.auth;
     return (
       <div id="singleProduct" key={id}>
@@ -177,7 +184,11 @@ class SingleProduct extends React.Component {
           {isAdmin ? (
             <div>
               <hr></hr>
-              <form id="new-message-form" onSubmit={this.handleSubmit} className="centered-form">
+              <form
+                id="new-message-form"
+                onSubmit={this.handleSubmit}
+                className="centered-form"
+              >
                 <h5>Update This Product</h5>
                 <div>
                   <TextField
@@ -221,10 +232,21 @@ class SingleProduct extends React.Component {
                     placeholder={String(stock)}
                   />
                   <span className="input-group-btn">
-                    <Button className="btn btn-default" type="submit" variant="contained" color="primary">
+                    <Button
+                      className="btn btn-default"
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                    >
                       Update
                     </Button>
-                    <Button onClick={this.handleDelete} variant="contained" color="secondary">Delete</Button>
+                    <Button
+                      onClick={this.handleDelete}
+                      variant="contained"
+                      color="secondary"
+                    >
+                      Delete
+                    </Button>
                   </span>
                 </div>
               </form>
