@@ -2,7 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { checkoutCartThunk } from "../store/cart";
+import { Button } from "@material-ui/core";
 
+const styles = {
+  button: {
+    position: "fixed",
+    right: "2%",
+  },
+};
 export class CheckoutBox extends Component {
   constructor(props) {
     super(props);
@@ -48,9 +55,15 @@ export class CheckoutBox extends Component {
     return (
       <div>
         <Link to="/checkout">
-          <button type="button" onClick={this.handleCheckout}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={this.handleCheckout}
+            style={{ ...styles.button }}
+          >
             Checkout
-          </button>
+          </Button>
         </Link>
         <h5>{this.state.warning}</h5>
       </div>

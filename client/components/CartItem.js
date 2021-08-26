@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { connect } from "react-redux";
 import {
   updateCartThunk,
@@ -6,6 +6,27 @@ import {
   updateVisitorCart,
   deleteVisitorItem,
 } from "../store/cart";
+import {
+  Button,
+  Card,
+  CardContent,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@material-ui/core";
+
+const styles = {
+  button: {
+    marginLeft: 5,
+  },
+  container: {
+    display: "flex",
+    width: "80%",
+    minWidth: 500,
+    marginBottom: 5,
+  },
+};
 
 class CartItem extends Component {
   constructor(props) {
@@ -50,25 +71,50 @@ class CartItem extends Component {
     const quantArray = new Array(item.product.stock);
     quantArray.fill(1);
     return (
-      <div className="cartItem">
-        <img src={item.product.imageUrl} width="200px" />
-        <h5>{item.product.name}</h5>
-        <h5>${item.product.price / 100}</h5>
-        <h5>{item.product.description}</h5>
-        <h5>Quantity : {this.state.updatedQuantity}</h5>
-        <select name="quantity" onChange={this.handleChange}>
-          {quantArray.map((element, index) => (
-            <option value={index + 1} key={index}>
-              {index + 1}
-            </option>
-          ))}
-        </select>
-        <button type="submit" onClick={this.handleSubmit}>
-          Update
-        </button>
-        <button type="button" onClick={this.handleDelete}>
-          Remove
-        </button>
+      <div class="centerChild">
+        <Card style={{ ...styles.container }}>
+          <img src={item.product.imageUrl} width="200px" />
+          <CardContent>
+            <h5>{item.product.name}</h5>
+            <p>{item.product.description}</p>
+            <p>${item.product.price / 100}</p>
+            <p>Quantity : {this.state.updatedQuantity}</p>
+
+            <FormControl variant="outlined" className="dropdown">
+              <InputLabel id="quantity-label">Quantity</InputLabel>
+              <Select
+                name="select"
+                onChange={this.handleChange}
+                labelId="quantity-label"
+                label="Quantity"
+              >
+                {quantArray.map((element, index) => (
+                  <MenuItem value={index + 1} key={index}>
+                    {index + 1}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button
+              onClick={this.handleSubmit}
+              variant="contained"
+              color="primary"
+              size="small"
+              style={{ ...styles.button }}
+            >
+              Update
+            </Button>
+            <Button
+              onClick={this.handleDelete}
+              variant="contained"
+              color="primary"
+              size="small"
+              style={{ ...styles.button }}
+            >
+              Remove
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     );
   }

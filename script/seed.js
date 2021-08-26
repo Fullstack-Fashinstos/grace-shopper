@@ -14,143 +14,163 @@ const shoes = [
     name: "Electric Sneakers",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 60000,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/R5gcTwsme68"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/R5gcTwsme68",
   },
   {
     name: "Suede High Tops",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 8499,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/NGWwHZeHNVE"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/NGWwHZeHNVE",
   },
   {
     name: "Minimalist Flats",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 3450,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/XZ3EmAIWuz0"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/XZ3EmAIWuz0",
   },
   {
     name: "Aqua Trainers",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 7999,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/jZyacqaR4iI"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/jZyacqaR4iI",
   },
   {
     name: "Sierra Hiking Boots",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 20000,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/Osq7UAVxIOI"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/Osq7UAVxIOI",
   },
   {
     name: "Nike Sneakers",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 5000,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/J2-wAQDckus"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/J2-wAQDckus",
   },
   {
     name: "Skate Shoes",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 5999,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/SmCIRo1QCpo"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/SmCIRo1QCpo",
   },
   {
     name: "Leather Work Boots",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 14999,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/B1Sn_ADEohs"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/B1Sn_ADEohs",
   },
   {
     name: "K-Swiss Trainers",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 4999,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/jLEGurepDco"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/jLEGurepDco",
   },
   {
     name: "City Sneakers",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 7999,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/6zO5VKogoZE"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/6zO5VKogoZE",
   },
   {
     name: "Nike High Tops",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 5999,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/dT6wB15xdoA"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/dT6wB15xdoA",
   },
   {
     name: "Neon Athletic Sneakers",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 8999,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/4JHMt29fvj8"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/4JHMt29fvj8",
   },
   {
     name: "Outdoors Trek Boots",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 17500,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/cHxZmiziwMI"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/cHxZmiziwMI",
   },
   {
     name: "Yellow Low Tops",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 3800,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/OJTNpLmsSHs"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/OJTNpLmsSHs",
   },
   {
     name: "Beige All Stars",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 5999,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/YQbJLyY0hFU"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/YQbJLyY0hFU",
   },
   {
     name: "All Terrain Boot",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 18900,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/_S83j9FBfw0"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/_S83j9FBfw0",
   },
   {
     name: "Mesh Flats",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 9999,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/1kOIl9vu4cY"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/1kOIl9vu4cY",
   },
   {
     name: "Boost Walking Shoes",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 2000,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/mgweTPIa2Pc"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/mgweTPIa2Pc",
   },
   {
     name: "Nike Leather Sneakers",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 7000,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/PqbL_mxmaUE"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/PqbL_mxmaUE",
   },
   {
     name: "Leather Oxfords",
     stock: Math.floor(Math.random() * 50) + 1,
     price: 14999,
-    description: "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
-    imageUrl: "https://source.unsplash.com/jng0VFa-jRw"
+    description:
+      "Light-weight shoes for indoor and outdoor use constructed from the most durable, long-lasting, and breathable materials. Perfect for casual and business-casual environments. Padded soles provide arch-support to adapt to any activity.",
+    imageUrl: "https://source.unsplash.com/jng0VFa-jRw",
   },
-]
+];
 
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
@@ -165,42 +185,10 @@ async function seed() {
   await Promise.all([
     User.create({ username: `cody`, password: "123", isAdmin: true }),
   ]);
-  // for (let i = 1; i < 21; i++) {
-  //   await Promise.all([
-  //     User.create({ username: "cody", password: "123", isAdmin: true }),
-  //     User.create({ username: "murphy", password: "123" }),
-  //     User.create({ username: "tom", password: "123" }),
-  //   ]);
-  // }
-
-  // const users = await Promise.all([
-  //   User.create({ username: "cody", password: "123", isAdmin: true }),
-  //   User.create({ username: "murphy", password: "123" }),
-  //   User.create({ username: "tom", password: "123" }),
-  // ]);
 
   for (let i = 0; i < shoes.length; i++) {
-    await Promise.all([Product.create(shoes[i])])
-  };
-
-  // await Promise.all([
-  //   Product.create({
-  //     name: "yeezys",
-  //     stock: 20,
-  //     price: 29099,
-  //     description: "very nice shoes",
-  //     imageUrl:
-  //       "https://images-na.ssl-images-amazon.com/images/I/81MUqwW7QEL._AC_UL1500_.jpg",
-  //   }),
-  //   Product.create({
-  //     name: "shoes",
-  //     stock: 30,
-  //     price: 12099,
-  //     description: "very very nice shoes",
-  //     imageUrl:
-  //       "https://images-na.ssl-images-amazon.com/images/I/81MUqwW7QEL._AC_UL1500_.jpg",
-  //   }),
-  // ]);
+    await Promise.all([Product.create(shoes[i])]);
+  }
 
   for (let i = 1; i < 21; i++) {
     await Promise.all([
@@ -218,21 +206,6 @@ async function seed() {
     }),
   ]);
 
-  // const order = await Promise.all([
-  //   Order.create({
-  //     fullfilled: false,
-  //     userId: 1,
-  //   }),
-  //   Order.create({
-  //     fullfilled: false,
-  //     userId: 2,
-  //   }),
-  //   Order.create({
-  //     fullfilled: false,
-  //     userId: 3,
-  //   }),
-  // ]);
-
   for (let i = 0; i < 101; i++) {
     const order_product = await Promise.all([
       Order_Product.create({
@@ -241,48 +214,6 @@ async function seed() {
       }),
     ]);
   }
-  // const order_product = await Promise.all([
-  //   Order_Product.create({
-  //     productId: 1,
-  //     orderId: 1,
-  //   }),
-  // Order_Product.create({
-  //   productId: 2,
-  //   orderId: 1,
-  // }),
-  // Order_Product.create({
-  //   productId: 2,
-  //   orderId: 2,
-  // }),
-
-  // ]);
-
-  // const carts = await Promise.all([
-  //   Cart.create({
-  //     userId: 1,
-  //     productId: 1,
-  //     quantity: 2,
-  //   }),
-  //   Cart.create({
-  //     userId: 1,
-  //     productId: 2,
-  //     quantity: 2,
-  //   }),
-  //   Cart.create({
-  //     userId: 2,
-  //     productId: 1,
-  //     quantity: 1,
-  //   }),
-  // ]);
-
-  // console.log(`seeded ${users.length} users`);
-  // console.log(`seeded successfully`);
-  // return {
-  //   users: {
-  //     cody: users[0],
-  //     murphy: users[1],
-  //   },
-  // };
 }
 
 /*

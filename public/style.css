@@ -14,9 +14,9 @@ body {
 }
 
 .productList {
- display: flex;
- flex-direction: column;
- justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .product-image {
@@ -33,7 +33,7 @@ body {
   width: 500px;
   margin: 20px;
   padding: 20px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   box-shadow: 3px 3px lightgray;
   border-radius: 5px;
 }
@@ -89,16 +89,17 @@ nav {
   margin: 0 5% 5% 5%;
 }
 
-button {
-  background-color: #a2cffe;
-  border: none;
-  border-radius: 1em !important;
-  padding: 0.5em;
-  margin: 0.5em !important;
+.btn {
+  margin: 1em;
+}
+
+.centerChild {
+  display: flex;
+  justify-content: center;
 }
 
 .card-links {
-  text-decoration: none
+  text-decoration: none;
 }
 
 .dropdown {
@@ -108,7 +109,7 @@ button {
 .order-card {
   display: flex;
   width: 90%;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 3px 3px lightgray;
@@ -116,7 +117,7 @@ button {
 }
 
 .order-details {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   padding: 10px;
 }
 
@@ -134,3 +135,10 @@ button {
   border-radius: 5px;
 }
 
+.loginForm {
+  background-color: #fff;
+  padding: 10px 5px 10px 15px;
+  box-shadow: 1px 1px 1px gray;
+  border-radius: 5px;
+  width: 400px;
+}
