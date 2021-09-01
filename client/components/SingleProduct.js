@@ -172,6 +172,7 @@ class SingleProduct extends React.Component {
               {this.buildOptions()}
             </Select>
           </FormControl>
+          <br /><br />
           <Button
             onClick={() => this.handleAdd(id, this.props.auth.id)}
             variant="contained"
